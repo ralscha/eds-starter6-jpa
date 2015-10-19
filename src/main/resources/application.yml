@@ -1,0 +1,89 @@
+info:
+  app.name: Starter
+  app.description: Ext JS 6 classic starter application
+  app.version: 1.0.0
+
+app:
+  url: http://localhost:8080
+  rememberme-cookie-key: starter
+  rememberme-cookie-valid-in-days: 31
+  default-email-sender: no-reply@starter.com
+  login-lock-attempts: 10
+  login-lock-minutes: 30
+
+security:
+  ignored:
+    - /resources/**
+    - /app.js
+    - /app.json
+    - /locale-de.js
+    - /i18n-de.js
+    - /i18n-en.js
+  
+spring:
+  jackson:
+    serialization:
+      write-date-timestamps-as-nanoseconds: false
+  
+  resources:
+    cache-period: 31556926
+  
+  mvc:
+    favicon:
+      enabled: false
+
+  mail:
+    host: localhost    
+  
+  datasource:
+        url: jdbc:h2:./db/test
+        username: sa
+        password: sa
+        #url: jdbc:mysql://localhost/starter6?useUnicode=yes&characterEncoding=UTF-8
+        #username: root
+        #password: root        
+        max-active: 100
+        max-idle: 10
+        min-idle: 4
+        initial-size: 4
+        validation-query: select 1
+        test-on-borrow: true
+        test-on-return: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 120000
+        min-evictable-idle-time-millis: 60000
+        max-wait: 10000
+        remove-abandoned: true
+        validation-interval: 120000
+        remove-abandoned-timeout: 600
+        jmx-enabled: false
+
+  async:
+    core-pool-size: 2
+    max-pool-size: 20
+    queue-capacity: 200
+    thread-name-prefix: starter-async-executor
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+      
+      
+liquibase:
+  change-log:
+    classpath:/db/changelog.xml
+
+server:
+  port: 80
+  session-timeout: 480
+  compression:
+     enabled: true
+     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript
+    
+logging:
+  level:
+    org.springframework: WARN
+    org.hibernate: WARN
+    org.apache: WARN
+    liquibase: WARN
+    ch: WARN

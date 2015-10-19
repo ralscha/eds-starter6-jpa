@@ -1,0 +1,16 @@
+.auth-locked-window{
+    .x-window-body {
+    	background-color: darken( $base-color, 33% );
+  	}
+  	
+  	.x-title-text {
+    	font-weight:bold;
+    	color: $lightest-color;	
+    }  	
+  	
+    &.x-window-default {
+        border: none;
+        border-radius: 0;
+        padding: 0;
+    }
+}

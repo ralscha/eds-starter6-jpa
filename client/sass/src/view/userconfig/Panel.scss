@@ -1,0 +1,18 @@
+.twofactor-secret {
+	font-weight:bold;
+	font-size: 18px;
+}
+
+.twofactor-info {
+	font-size: 16px;
+	
+	.disabled {
+	   font-weight: bold;
+	   color: red;
+	}
+	
+	.enabled {
+	   font-weight: bold;
+	   color: green;
+	}
+}

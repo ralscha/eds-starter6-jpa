@@ -1,0 +1,30 @@
+.signout-page-container {
+
+    .x-window-body {
+    	background-color: darken( $base-color, 33% );
+    	color: $lightest-color;	
+  	}
+
+  	.x-title-text {
+    	font-weight:bold;
+    	color: $lightest-color;	
+    }
+
+	.signout-page-top-text {
+	    font-size: 30px;
+	    line-height: 36px;
+	}
+	
+	.signout-page-desc {
+		line-height:24px;
+		text-align:center;
+		font-size:18px;
+		a{
+			color:$base-color;
+			text-decoration:none;
+			&:hover{
+				text-decoration:underline;
+			}
+		}
+	}
+}

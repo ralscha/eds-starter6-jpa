@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    show-sql: true
+  resources:
+    cache-period:
+
+security:
+  ignored:
+    - /resources/**
+    - /build/**
+    - /ext/**
+    - /**/*.js
+    - /bootstrap.json
+
+server:
+  port: 8080
+  compression:
+    enabled: false
+
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate: INFO
+    org.apache: INFO
+    liquibase: INFO
+    ch: INFO
