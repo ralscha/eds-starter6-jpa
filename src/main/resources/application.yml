@@ -67,7 +67,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-      
+
+  main:
+    banner-mode: log       
       
 liquibase:
   change-log:
@@ -79,6 +81,8 @@ server:
   compression:
      enabled: true
      mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript
+  use-forward-headers: true
+
     
 logging:
   level:
@@ -87,3 +91,4 @@ logging:
     org.apache: WARN
     liquibase: WARN
     ch: WARN
+  file: ./app.log
