@@ -46,7 +46,14 @@ Ext.define('Starter.Application', {
 			me.fireEvent('logout', this);
 		}
 		else {
-			securityService.getAuthUser(function(user) {
+			securityService.getAuthUser(function(user, e, success) {
+				if (!success && !sessionStorage.getAuthRetry) {
+					sessionStorage.getAuthRetry = true;
+					window.location.reload();
+					return;
+				}
+				sessionStorage.removeItem('getAuthRetry')
+
 				if (user) {
 					me.fireEvent('signedin', this, user);
 				}

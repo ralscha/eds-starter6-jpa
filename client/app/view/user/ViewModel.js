@@ -3,12 +3,12 @@ Ext.define('Starter.view.user.ViewModel', {
 	requires: [ 'Ext.data.BufferedStore' ],
 
 	data: {
-		selectedUser: null,
+		selectedObject: null,
 		totalCount: null
 	},
 
 	stores: {
-		users: {
+		objects: {
 			model: 'Starter.model.User',
 			autoLoad: false,
 			buffered: true,
@@ -19,7 +19,7 @@ Ext.define('Starter.view.user.ViewModel', {
 				direction: 'ASC'
 			} ],
 			listeners: {
-				load: 'onUsersStoreLoad'
+				load: 'onObjectStoreLoad'
 			},
 			pageSize: 100,
 			leadingBufferZone: 200
@@ -34,9 +34,14 @@ Ext.define('Starter.view.user.ViewModel', {
 	},
 
 	formulas: {
-		newUser: function(get) {
-			var su = get('selectedUser');
-			return !su || su.phantom;
+		isPhantomObject: {
+			bind: {
+				bindTo: '{selectedObject}',
+				deep: true
+			},
+			get: function(selectedObject) {
+				return !selectedObject || selectedObject.phantom;
+			}
 		}
 	}
 

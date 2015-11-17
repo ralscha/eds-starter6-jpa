@@ -41,14 +41,18 @@ public class MailService {
 
 	private final String appName;
 
+	private final Mustache.Compiler mustacheCompiler;
+
 	@Autowired
 	public MailService(JavaMailSender mailSender, MessageSource messageSource,
-			AppProperties appProperties, @Value("${info.app.name}") String appName) {
+			AppProperties appProperties, Mustache.Compiler mustacheCompiler,
+			@Value("${info.app.name}") String appName) {
 		this.mailSender = mailSender;
 		this.defaultSender = appProperties.getDefaultEmailSender();
 		this.messageSource = messageSource;
 		this.appUrl = appProperties.getUrl();
 		this.appName = appName;
+		this.mustacheCompiler = mustacheCompiler;
 	}
 
 	@Async
@@ -79,7 +83,7 @@ public class MailService {
 		}
 	}
 
-	private static String getEmailText(Locale locale, String loginName, String link)
+	private String getEmailText(Locale locale, String loginName, String link)
 			throws IOException {
 		String resource = "pwreset_email.mustache";
 		if (locale != null && locale.getLanguage().toLowerCase().equals("de")) {
@@ -87,7 +91,7 @@ public class MailService {
 		}
 		ClassPathResource cp = new ClassPathResource(resource);
 		try (InputStream is = cp.getInputStream()) {
-			Template template = Mustache.compiler().compile(new InputStreamReader(is));
+			Template template = this.mustacheCompiler.compile(new InputStreamReader(is));
 
 			Map<String, Object> data = new HashMap<>();
 			data.put("loginName", loginName);

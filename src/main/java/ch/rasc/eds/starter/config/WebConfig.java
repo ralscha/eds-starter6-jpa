@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.samskivert.mustache.Mustache;
 
 import ch.ralscha.extdirectspring.util.JsonHandler;
 
@@ -38,4 +39,8 @@ public class WebConfig {
 		return resolver;
 	}
 
+	@Bean
+	public Mustache.Compiler mustacheCompiler() {
+		return Mustache.compiler();
+	}
 }

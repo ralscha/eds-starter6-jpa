@@ -1,7 +1,9 @@
 info:
-  app.name: Starter
-  app.description: Ext JS 6 classic starter application
-  app.version: 1.0.0
+  app.name: "@project.name@"
+  app.description: "@project.description@"
+  app.version: "@project.version@"
+  build.artifact: "@project.artifactId@"
+  build.time: "@build.timestamp@"
 
 app:
   url: http://localhost:8080

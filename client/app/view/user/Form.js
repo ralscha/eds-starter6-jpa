@@ -15,22 +15,22 @@ Ext.define('Starter.view.user.Form', {
 	modelValidation: true,
 
 	items: [ {
-		bind: '{selectedUser.email}',
+		bind: '{selectedObject.email}',
 		name: 'email',
 		fieldLabel: i18n.user_email
 	}, {
-		bind: '{selectedUser.firstName}',
+		bind: '{selectedObject.firstName}',
 		name: 'firstName',
 		fieldLabel: i18n.user_firstname
 	}, {
-		bind: '{selectedUser.lastName}',
+		bind: '{selectedObject.lastName}',
 		name: 'lastName',
 		fieldLabel: i18n.user_lastname
 	}, {
 		xtype: 'combobox',
 		fieldLabel: i18n.language,
 		bind: {
-			value: '{selectedUser.locale}'
+			value: '{selectedObject.locale}'
 		},
 		name: 'locale',
 		store: 'languages',
@@ -43,7 +43,7 @@ Ext.define('Starter.view.user.Form', {
 			change: 'onLanguageChange'
 		}
 	}, {
-		bind: '{selectedUser.enabled}',
+		bind: '{selectedObject.enabled}',
 		fieldLabel: i18n.user_enabled,
 		name: 'enabled',
 		xtype: 'checkboxfield',
@@ -55,7 +55,7 @@ Ext.define('Starter.view.user.Form', {
 		fieldLabel: i18n.user_authorities,
 		bind: {
 			store: '{authorities}',
-			value: '{selectedUser.authorities}'
+			value: '{selectedObject.authorities}'
 		},
 		name: 'authorities',
 		displayField: 'name',
@@ -72,17 +72,9 @@ Ext.define('Starter.view.user.Form', {
 		xtype: 'toolbar',
 		dock: 'top',
 		items: [ {
-			text: 'Users',
+			text: i18n.back,
 			handler: 'back',
 			iconCls: 'x-fa fa-arrow-left'
-		}, '-', {
-			text: i18n.destroy,
-			iconCls: 'x-fa fa-trash-o',
-			handler: 'erase',
-			ui: 'soft-red',
-			bind: {
-				hidden: '{newUser}'
-			}
 		}, {
 			text: Starter.Util.underline(i18n.save, 'S'),
 			accessKey: 's',
@@ -91,32 +83,40 @@ Ext.define('Starter.view.user.Form', {
 			formBind: true,
 			handler: 'save'
 		}, '-', {
+			text: i18n.destroy,
+			iconCls: 'x-fa fa-trash-o',
+			handler: 'erase',
+			ui: 'soft-red',
+			bind: {
+				hidden: '{isPhantomObject}'
+			}
+		}, {
 			text: i18n.user_send_pwresetreq,
 			iconCls: 'x-fa fa-envelope-o',
 			handler: 'sendPwResetReq',
 			bind: {
-				hidden: '{newUser}'
+				hidden: '{isPhantomObject}'
 			}
 		}, {
 			text: i18n.user_switchto,
 			iconCls: 'x-fa fa-user-secret',
 			handler: 'switchTo',
 			bind: {
-				hidden: '{newUser}'
+				hidden: '{isPhantomObject}'
 			}
 		}, {
 			text: i18n.user_unlock,
 			handler: 'unlock',
 			iconCls: 'x-fa fa-unlock',
 			bind: {
-				hidden: '{!selectedUser.lockedOutUntil}'
+				hidden: '{!selectedObject.lockedOutUntil}'
 			}
 		}, {
 			text: i18n.user_disable_twofactorauth,
 			iconCls: 'x-fa fa-trash-o',
 			handler: 'disableTwoFactorAuth',
 			bind: {
-				hidden: '{!selectedUser.twoFactorAuth}'
+				hidden: '{!selectedObject.twoFactorAuth}'
 			}
 		} ]
 	} ]

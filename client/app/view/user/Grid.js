@@ -13,8 +13,8 @@ Ext.define('Starter.view.user.Grid', {
 	autoLoad: true,
 
 	bind: {
-		store: '{users}',
-		selection: '{selectedUser}'
+		store: '{objects}',
+		selection: '{selectedObject}'
 	},
 
 	listeners: {
@@ -86,7 +86,7 @@ Ext.define('Starter.view.user.Grid', {
 		items: [ {
 			text: i18n.create,
 			iconCls: 'x-fa fa-plus',
-			handler: 'newUser'
+			handler: 'newObject'
 		}, '->', {
 			emptyText: i18n.filter,
 			xtype: 'textfield',

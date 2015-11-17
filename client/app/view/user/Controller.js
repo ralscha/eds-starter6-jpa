@@ -1,35 +1,10 @@
 Ext.define('Starter.view.user.Controller', {
-	extend: 'Ext.app.ViewController',
+	extend: 'Starter.view.base.ViewController',
 
-	onGridRefresh: function() {
-		this.getViewModel().set('selectedUser', null);
-		this.getStore('users').reload();
-	},
-
-	onUsersStoreLoad: function(store) {
-		var total = store.getTotalCount();
-		this.getViewModel().set('totalCount', Ext.util.Format.plural(total, 'User', 'Users'));
-	},
-
-	newUser: function() {
-		this.getViewModel().set('selectedUser', new Starter.model.User());
-		this.edit();
-	},
-
-	onItemclick: function() {
-		this.edit();
-	},
-
-	edit: function() {
-		this.getView().add({
-			xclass: 'Starter.view.user.Form'
-		});
-
-		var formPanel = this.getView().getLayout().next();
-
-		Ext.defer(function() {
-			formPanel.isValid();
-		}, 1);
+	config: {
+		formClassName: 'Starter.view.user.Form',
+		objectName: i18n.user,
+		objectNamePlural: i18n.users
 	},
 
 	onLanguageChange: function() {
@@ -37,88 +12,16 @@ Ext.define('Starter.view.user.Controller', {
 		this.lookup('editPanel').getForm().checkValidity();
 	},
 
-	back: function() {
-		var user = this.getViewModel().get('selectedUser');
-		if (user) {
-			user.reject();
-		}
-
-		this.getView().getLayout().prev();
-		this.getView().getLayout().getNext().destroy();
-	},
-
-	onFilter: function(tf) {
-		var value = tf.getValue();
-		var store = this.getStore('users');
-		if (value) {
-			this.getViewModel().set('filter', value);
-			store.filter('filter', value);
-		}
-		else {
-			this.getViewModel().set('filter', null);
-			store.clearFilter();
-		}
-	},
-
-	onFilterClear: function(tf) {
-		tf.setValue('');
-	},
-
-	save: function() {
-		var form = this.lookup('editPanel').getForm();
-		if (form.isValid()) {
-			this.getView().mask(i18n.saving);
-
-			var user = this.getViewModel().get('selectedUser');
-			user.save({
-				scope: this,
-				success: function(record, operation) {
-					Starter.Util.successToast(i18n.savesuccessful);
-					this.getStore('users').reload();
-					this.back();
-				},
-				failure: function(record, operation) {
-					Starter.Util.errorToast(i18n.inputcontainserrors);
-					var validations = operation.getResponse().result.validations;
-					Starter.Util.markInvalidFields(form, validations);
-				},
-				callback: function(record, operation, success) {
-					this.getView().unmask();
-				}
-			});
-
-		}
-	},
-
-	erase: function(record, errormsg, successCallback, errorCallback, scope) {
-		var selectedUser = this.getViewModel().get('selectedUser');
-		if (!selectedUser) {
-			return;
-		}
-
-		Ext.Msg.confirm(i18n.attention, Ext.String.format(i18n.destroyConfirmMsg, selectedUser.get('email')), function(choice) {
-			if (choice === 'yes') {
-				selectedUser.erase({
-					success: function(record, operation) {
-						this.onGridRefresh();
-						Starter.Util.successToast(i18n.destroysuccessful);
-					},
-					failure: function(record, operation) {
+	erase: function() {
+		this.eraseObject(this.getSelectedObject().get('email'), null, function() {
 						Starter.Util.errorToast(i18n.user_lastadmin_error);
-					},
-					callback: function(records, operation, success) {
-						this.back();
-					},
-					scope: this
-				});
-			}
 		}, this);
 	},
 
 	switchTo: function() {
-		var selectedUser = this.getViewModel().get('selectedUser');
-		if (selectedUser) {
-			securityService.switchUser(selectedUser.getId(), function(authUser) {
+		var selectedObject = this.getSelectedObject();
+		if (selectedObject) {
+			securityService.switchUser(selectedObject.getId(), function(authUser) {
 				if (authUser) {
 					Starter.app.authUser = authUser;
 					var currentLocation = window.location.toString();
@@ -137,11 +40,11 @@ Ext.define('Starter.view.user.Controller', {
 	},
 
 	unlock: function() {
-		var selectedUser = this.getViewModel().get('selectedUser');
-		if (selectedUser) {
-			userService.unlock(selectedUser.getId(), function() {
+		var selectedObject = this.getSelectedObject();
+		if (selectedObject) {
+			userService.unlock(selectedObject.getId(), function() {
 				Starter.Util.successToast(i18n.user_unlocked);
-				selectedUser.set('lockedOutUntil', null, {
+				selectedObject.set('lockedOutUntil', null, {
 					commit: true
 				});
 				this.back();
@@ -150,11 +53,11 @@ Ext.define('Starter.view.user.Controller', {
 	},
 
 	disableTwoFactorAuth: function() {
-		var selectedUser = this.getViewModel().get('selectedUser');
-		if (selectedUser) {
-			userService.disableTwoFactorAuth(selectedUser.getId(), function() {
+		var selectedObject = this.getSelectedObject();
+		if (selectedObject) {
+			userService.disableTwoFactorAuth(selectedObject.getId(), function() {
 				Starter.Util.successToast(i18n.user_unlocked);
-				selectedUser.set('twoFactorAuth', false, {
+				selectedObject.set('twoFactorAuth', false, {
 					commit: true
 				});
 				this.back();
@@ -163,9 +66,9 @@ Ext.define('Starter.view.user.Controller', {
 	},
 
 	sendPwResetReq: function() {
-		var selectedUser = this.getViewModel().get('selectedUser');
-		if (selectedUser) {
-			userService.sendPassordResetEmail(selectedUser.getId(), function() {
+		var selectedObject = this.getSelectedObject();
+		if (selectedObject) {
+			userService.sendPassordResetEmail(selectedObject.getId(), function() {
 				Starter.Util.successToast(i18n.user_sent_pwresetreq);
 			});
 		}
