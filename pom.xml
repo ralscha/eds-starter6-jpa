@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<prerequisites>
-		<maven>3.3.3</maven>
+		<maven>3.3.9</maven>
 	</prerequisites>
 
 	<groupId>ch.rasc</groupId>
