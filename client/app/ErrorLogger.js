@@ -9,6 +9,10 @@ Ext.define("Starter.ErrorLogger", {
 	},
 
 	onError: function(message, file, line, column, errorObj) {
+		if (!logService) {
+			return;
+		}		
+		
 		var win = window, d = document;
 
 		if (!message || message.match('chrome://') || message.match('Script error')) {
