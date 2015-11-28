@@ -38,7 +38,7 @@ Ext.define('Starter.view.base.ViewController', {
 		}
 		else {
 			this.getViewModel().set('filter', null);
-			store.clearFilter();
+			store.removeFilter('filter');
 		}
 	},
 
