@@ -115,8 +115,7 @@ public class SecurityService {
 			if (user.getLockedOutUntil() != null) {
 				HttpSession session = request.getSession(false);
 				if (session != null) {
-					Application.logger
-							.debug("Invalidating session: " + session.getId());
+					Application.logger.debug("Invalidating session: " + session.getId());
 					session.invalidate();
 				}
 				SecurityContext context = SecurityContextHolder.getContext();

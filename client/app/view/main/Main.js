@@ -70,7 +70,7 @@ Ext.define('Starter.view.main.Main', {
 			xtype: 'container',
 			flex: 1,
 			reference: 'mainCardPanel',
-			padding: 15,
+			padding: 8,
 			layout: {
 				type: 'card'
 			}

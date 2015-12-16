@@ -81,13 +81,11 @@ public class UserAuthErrorHandler
 				this.jpaQueryFactory.getEntityManager().merge(user);
 			}
 			else {
-				Application.logger
-						.warn("Unknown user login attempt: {}", principal);
+				Application.logger.warn("Unknown user login attempt: {}", principal);
 			}
 		}
 		else {
-			Application.logger
-					.warn("Invalid login attempt: {}", principal);
+			Application.logger.warn("Invalid login attempt: {}", principal);
 		}
 	}
 

@@ -37,7 +37,6 @@ Ext.define('Starter.view.main.MainController', {
 				':node': '(?!auth.)([a-z\\.]+)'
 			}
 		}
-
 	},
 
 	onSignedIn: function(event, user) {
@@ -257,8 +256,11 @@ Ext.define('Starter.view.main.MainController', {
 		if (!internal) {
 			var navigationStore = Ext.getStore('navigation');
 			var node = navigationStore.findNode('routeId', hashTag);
+
 			if (node) {
+				navigationTreeList.suspendEvent('selectionchange');
 				navigationTreeList.setSelection(node);
+				navigationTreeList.resumeEvent('selectionchange');
 				view = node.get('view');
 			}
 			else {

@@ -42,10 +42,6 @@ Ext.define('Starter.view.base.ViewController', {
 		}
 	},
 
-	onFilterClear: function(tf) {
-		tf.setValue('');
-	},
-
 	onItemclick: function() {
 		this.edit();
 	},

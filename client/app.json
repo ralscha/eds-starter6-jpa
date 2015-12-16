@@ -21,8 +21,7 @@
      * application resides (the same folder in which this file is located).
      */
     "classpath": [
-        "app",
-        "${toolkit.name}/src"
+        "app"
     ],
 
     /**
@@ -33,8 +32,7 @@
      * in the "override" property is also included.
      */
     "overrides": [
-        "overrides",
-        "${toolkit.name}/overrides"
+        "overrides"
     ],
 
     /**
@@ -42,17 +40,17 @@
      */
     "framework": "ext",
     
+    
     /**
      * The toolkit to use. Select either "classic" or "modern".
      */
-    
     "toolkit": "classic",
+    
     
     
     /**
      * The name of the theme for this application.
      */
-    
     
     "theme": "theme-triton",
     
@@ -126,8 +124,7 @@
          *      +-----------------+
          */
         "etc": [
-            "sass/etc/all.scss",
-            "${toolkit.name}/sass/etc/all.scss"
+            "sass/etc/all.scss"
         ],
 
         /**
@@ -152,8 +149,7 @@
          */
         "var": [
             "sass/var/all.scss",
-            "sass/var",
-            "${toolkit.name}/sass/var"
+            "sass/var"
         ],
 
         /**
@@ -173,8 +169,7 @@
          *      +-----------------+
          */
         "src": [
-            "sass/src",
-            "${toolkit.name}/sass/src"
+            "sass/src"
         ]
     },
 
@@ -221,6 +216,9 @@
      */
     "js": [
         {
+            "path": "${framework.dir}/build/ext-all-rtl-debug.js"
+        },
+        {
         	"path": "api.js",
 			"includeInBundle": true
         },    
@@ -234,29 +232,7 @@
         }
     ],
 
-    /**
-     * Settings specific to classic toolkit builds.
-     */
-    "classic": {
-        "js": [
-            // Remove this entry to individually load sources from the framework.
-            {
-                "path": "${framework.dir}/build/ext-all-rtl-debug.js"
-            }
-        ]
-    },
 
-    /**
-     * Settings specific to modern toolkit builds.
-     */
-    "modern": {
-        "js": [
-            // Remove this entry to individually load sources from the framework.
-            {
-                "path": "${framework.dir}/build/ext-modern-all-debug.js"
-            }
-        ]
-    },
 
     /**
      * List of all CSS assets in the right inclusion order.
@@ -491,12 +467,6 @@
         {
             "path": "resources",
             "output": "shared"
-        },
-        {
-            "path": "${toolkit.name}/resources"
-        },
-        {
-            "path": "${build.id}/resources"
         }
     ],
 
@@ -546,18 +516,6 @@
      * or other criteria. Your "Ext.beforeLoad" hook (see index.html) is responsible for
      * selecting the desired build profile by setting "Ext.manifest" to one of these
      * names.
-     *
-     *     "builds": {
-     *         "classic": {
-     *             "toolkit": "classic",
-     *             "theme": "theme-neptune"
-     *         },
-     *
-     *         "modern": {
-     *             "toolkit": "modern",
-     *             "theme": "theme-neptune"
-     *         }
-     *     }
      *
      */
     

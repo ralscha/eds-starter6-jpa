@@ -1,6 +1,6 @@
 Ext.define('Starter.view.user.Grid', {
 	extend: 'Ext.grid.Panel',
-
+	requires: [ 'Starter.plugin.Clearable' ],
 	stateful: true,
 	stateId: 'view.user.Grid',
 
@@ -84,30 +84,22 @@ Ext.define('Starter.view.user.Grid', {
 		xtype: 'toolbar',
 		dock: 'top',
 		items: [ {
-			text: i18n.create,
-			iconCls: 'x-fa fa-plus',
-			handler: 'newObject'
-		}, '->', {
 			emptyText: i18n.filter,
 			xtype: 'textfield',
-			width: 300,
-			triggers: {
-				search: {
-					cls: 'x-form-search-trigger',
-					handler: 'onFilter'
-				},
-				clear: {
-					cls: 'x-form-clear-trigger',
-					handler: 'onFilterClear'
-				}
-			},
-
+			width: 250,
+			plugins: [ {
+				ptype: 'clearable'
+			} ],
 			listeners: {
 				change: {
 					fn: 'onFilter',
 					buffer: 500
 				}
 			}
+		}, {
+			text: i18n.create,
+			iconCls: 'x-fa fa-plus',
+			handler: 'newObject'
 		} ]
 	}, {
 		xtype: 'toolbar',

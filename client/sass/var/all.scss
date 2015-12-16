@@ -1,6 +1,14 @@
 $include-ie: false;
 $enable-font-awesome: dynamic(true);
 
+$enable-font-open-sans: false;
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);
+$font-family: dynamic('Roboto', 'Helvetica Neue', helvetica, arial, verdana, sans-serif);
+$font-weight-normal: dynamic(400);
+$font-weight-bold: dynamic(500);
+$font-size: dynamic(14px);
+$button-small-font-size: 14px;
+
 $panel-navigation-background-color: #32404e;
 $panel-navigation-item-line-height: 64px;
 $panel-navigation-item-text-color: #ADB3B8;

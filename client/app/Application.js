@@ -6,6 +6,28 @@ Ext.define('Starter.Application', {
 	stores: [ 'Navigation', 'Languages' ],
 
 	constructor: function() {
+
+		// start fix. isEqual is missing in current version
+		Ext.Array.isEqual = function(a, b) {
+			if (a === b) {
+				return true;
+			}
+			if (a == null || b == null) {
+				return false;
+			}
+			if (a.length != b.length) {
+				return false;
+			}
+
+			for (var i = 0; i < a.length; ++i) {
+				if (a[i] !== b[i]) {
+					return false;
+				}
+			}
+			return true;
+		};
+		// end fix
+
 		// <debug>
 		Ext.Ajax.on('beforerequest', function(conn, options, eOpts) {
 			options.withCredentials = true;

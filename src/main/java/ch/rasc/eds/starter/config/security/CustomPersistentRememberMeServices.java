@@ -121,7 +121,8 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
 			String loginName = result.get(QUser.user.loginName);
 			String token = result.get(QPersistentLogin.persistentLogin.token);
 
-			Application.logger.debug("Refreshing persistent login token for user '{}', series '{}'",
+			Application.logger.debug(
+					"Refreshing persistent login token for user '{}', series '{}'",
 					loginName, series);
 
 			addCookie(series, token, request, response);
@@ -198,10 +199,12 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
 				removePersistentLogin(getPersistentToken(cookieTokens));
 			}
 			catch (InvalidCookieException ice) {
-				Application.logger.info("Invalid cookie, no persistent token could be deleted");
+				Application.logger
+						.info("Invalid cookie, no persistent token could be deleted");
 			}
 			catch (RememberMeAuthenticationException rmae) {
-				Application.logger.debug("No persistent token found, so no token could be deleted");
+				Application.logger
+						.debug("No persistent token found, so no token could be deleted");
 			}
 		}
 

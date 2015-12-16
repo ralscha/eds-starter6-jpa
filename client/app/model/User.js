@@ -42,6 +42,8 @@ Ext.define("Starter.model.User",
       type : "length",
       min : 0,
       max : 255
+    }, {
+      type : "notBlank"
     } ]
   }, {
     name : "authorities",

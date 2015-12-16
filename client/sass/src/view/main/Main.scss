@@ -33,7 +33,7 @@
     $item-icon-over-color: #fff,
     $item-expander-over-color: #fff,
     $item-text-over-color: mix(white, $panel-navigation-item-text-color, 50%),
-    $item-text-font-size: 14px,
+    $item-text-font-size: 16px,
 
     // Various sizes for the pieces:
     $item-icon-font-size: 18px,
@@ -307,7 +307,6 @@
 
 span.label {
 	padding: 0.2em 0.6em 0.3em;
-	font-size: 90%;
 	border-radius: 0.25em;
 	color: $lightest-color;
 }

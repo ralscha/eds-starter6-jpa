@@ -403,7 +403,8 @@
                   defaultSassFile="${app.out.scss}"
                   defaultCssFile="${app.out.css}"
                   refid="app.web.server"
-                  saveVariablesProp="app.sass.save">
+                  saveVariablesProp="app.sass.save"
+                  j2eeMode="${use.webxml}">
             <mapping name="~cmd" path="${cmd.dir}"/>
             <mapping name="" path="${build.web.root}"/>
         </x-server>

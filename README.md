@@ -6,3 +6,4 @@ Logins
 | ----------------- |---------- |
 | admin@starter.com | admin     |
 | user@starter.com  | user      |
+

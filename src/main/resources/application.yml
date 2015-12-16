@@ -82,7 +82,7 @@ server:
   session-timeout: 480
   compression:
      enabled: true
-     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript
+     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript,image/svg+xml,application/x-font-ttf,application/x-font-truetype,application/x-font-opentype,application/vnd.ms-fontobject,application/font-sfnt     
   use-forward-headers: true
 
     

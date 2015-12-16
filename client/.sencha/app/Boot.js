@@ -814,6 +814,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                             if (complete) {
                                 complete.call(scope, result);
                             }
+                            xhr.onreadystatechange = emptyFn;
                             xhr = null;
                         }
                     };
@@ -1440,6 +1441,8 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
         loadCrossDomain: function() {
             var me = this,
                 complete = function(){
+                    me.el.onerror = me.el.onload = emptyFn;
+                    me.el = null;
                     me.loaded = me.evaluated = me.done = true;
                     me.notifyRequests();
                 };
@@ -1456,6 +1459,8 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
         loadElement: function() {
             var me = this,
                 complete = function(){
+                    me.el.onerror = me.el.onload = emptyFn;
+                    me.el = null;
                     me.loaded = me.evaluated = me.done = true;
                     me.notifyRequests();
                 };
