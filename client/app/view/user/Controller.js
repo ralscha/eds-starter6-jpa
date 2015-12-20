@@ -7,11 +7,6 @@ Ext.define('Starter.view.user.Controller', {
 		objectNamePlural: i18n.users
 	},
 
-	onLanguageChange: function() {
-		// FIX. save button does not enable when language is selected
-		this.lookup('editPanel').getForm().checkValidity();
-	},
-
 	erase: function() {
 		this.eraseObject(this.getSelectedObject().get('email'), null, function() {
 						Starter.Util.errorToast(i18n.user_lastadmin_error);

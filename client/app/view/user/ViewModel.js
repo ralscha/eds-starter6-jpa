@@ -23,13 +23,6 @@ Ext.define('Starter.view.user.ViewModel', {
 			},
 			pageSize: 100,
 			leadingBufferZone: 200
-		},
-		authorities: {
-			model: 'Starter.model.Authority',
-			autoLoad: true,
-			remoteFilter: false,
-			remoteSort: false,
-			pageSize: 0
 		}
 	},
 

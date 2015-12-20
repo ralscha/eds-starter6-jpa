@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
+import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -31,6 +33,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.ralscha.extdirectspring.util.ExtDirectSpringUtil;
+import ch.rasc.eds.starter.entity.Authority;
 
 @Configuration
 @Profile("development")
@@ -74,7 +77,53 @@ class DevelopmentConfig extends WebMvcConfigurerAdapter {
 		Files.write(Paths.get(userDir, "client", "api.js"),
 				extDirectConfig.getBytes(StandardCharsets.UTF_8));
 
-		writeI18n(Paths.get(userDir, "client"));
+		Path clientDir = Paths.get(userDir, "client");
+		writeI18n(clientDir);
+		writeEnums(clientDir);
+	}
+
+	private static void writeEnums(Path clientDir) throws IOException {
+		writeEnum(clientDir, "Authority", Authority.values(), true);
+	}
+
+	private static void writeEnum(Path clientDir, String name, Enum<?>[] values,
+			boolean writeStore) throws IOException {
+		StringBuilder sb = new StringBuilder(200);
+		sb.append("Ext.define('Starter.constant." + name + "', {\n");
+		sb.append("\tsingleton: true,\n");
+		String valuesString = Arrays.stream(values)
+				.map(e -> String.format("\t%s: '%s'", e.name(), e.name()))
+				.collect(Collectors.joining(",\n"));
+		sb.append(valuesString);
+		sb.append("\n");
+		sb.append("});");
+
+		Path constantDir = clientDir.resolve("app").resolve("constant");
+		if (Files.notExists(constantDir)) {
+			Files.createDirectories(constantDir);
+		}
+
+		Files.write(constantDir.resolve(name + ".js"),
+				sb.toString().getBytes(StandardCharsets.UTF_8));
+
+		if (writeStore) {
+			sb = new StringBuilder(200);
+
+			sb.append("Ext.define('Starter.store." + name + "', {\n");
+			sb.append("\textend: 'Ext.data.Store',\n");
+			sb.append("\tstoreId: '" + StringUtils.uncapitalize(name) + "',\n");
+			sb.append("\tdata: [\n");
+
+			valuesString = Arrays.stream(values).map(e -> String
+					.format("\t\t{ value: Starter.constant.%s.%s }", name, e.name()))
+					.collect(Collectors.joining(",\n"));
+			sb.append(valuesString);
+			sb.append("\n\t]\n");
+			sb.append("});");
+
+			Files.write(clientDir.resolve("app").resolve("store").resolve(name + ".js"),
+					sb.toString().getBytes(StandardCharsets.UTF_8));
+		}
 	}
 
 	private void writeI18n(Path clientDir) throws IOException {

@@ -3,7 +3,7 @@ Ext.define('Starter.Application', {
 	requires: [ 'Ext.direct.*', 'Ext.form.action.DirectSubmit', 'Starter.*', 'Ext.state.Manager', 'Ext.state.LocalStorageProvider', 'Ext.container.Container' ],
 	name: 'Starter',
 
-	stores: [ 'Navigation', 'Languages' ],
+	stores: [ 'Navigation', 'Languages', 'Authority' ],
 
 	constructor: function() {
 

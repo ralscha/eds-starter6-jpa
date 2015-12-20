@@ -38,10 +38,7 @@ Ext.define('Starter.view.user.Form', {
 		queryMode: 'local',
 		emptyText: i18n.language_select,
 		forceSelection: true,
-		editable: false,
-		listeners: {
-			change: 'onLanguageChange'
-		}
+		editable: false
 	}, {
 		bind: '{selectedObject.enabled}',
 		fieldLabel: i18n.user_enabled,
@@ -53,17 +50,16 @@ Ext.define('Starter.view.user.Form', {
 	}, {
 		xtype: 'tagfield',
 		fieldLabel: i18n.user_authorities,
+		store: 'authority',
 		bind: {
-			store: '{authorities}',
 			value: '{selectedObject.authorities}'
 		},
 		name: 'authorities',
-		displayField: 'name',
-		valueField: 'name',
+		displayField: 'value',
+		valueField: 'value',
 		queryMode: 'local',
 		forceSelection: true,
 		autoSelect: true,
-		delimiter: ',',
 		editable: false,
 		selectOnFocus: false
 	} ],
