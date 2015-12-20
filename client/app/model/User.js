@@ -4,6 +4,10 @@ Ext.define("Starter.model.User",
   requires : [ "Ext.data.identifier.Negative", "Ext.data.proxy.Direct", "Ext.data.validator.Email", "Ext.data.validator.Length" ],
   identifier : "negative",
   fields : [ {
+    name : "twoFactorAuth",
+    type : "boolean",
+    persist : false
+  }, {
     name : "loginName",
     type : "string",
     validators : [ {
@@ -74,10 +78,6 @@ Ext.define("Starter.model.User",
     name : "lastAccess",
     type : "date",
     dateFormat : "time",
-    persist : false
-  }, {
-    name : "twoFactorAuth",
-    type : "boolean",
     persist : false
   }, {
     name : "id",

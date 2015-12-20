@@ -8,11 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
-import javax.persistence.PostUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -25,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelField;
+import ch.rasc.extclassgenerator.ModelType;
 
 @Entity
 @Table(name = "AppUser")
@@ -32,6 +29,7 @@ import ch.rasc.extclassgenerator.ModelField;
 		createMethod = "userService.update", updateMethod = "userService.update",
 		destroyMethod = "userService.destroy", paging = true, identifier = "negative")
 @JsonInclude(Include.NON_NULL)
+@ModelField(value = "twoFactorAuth", persist = false, type = ModelType.BOOLEAN)
 public class User extends AbstractPersistable {
 
 	@NotBlank(message = "{fieldrequired}")
@@ -91,10 +89,6 @@ public class User extends AbstractPersistable {
 	@JsonIgnore
 	@Size(max = 16)
 	private String secret;
-
-	@Transient
-	@ModelField(persist = false)
-	private boolean twoFactorAuth;
 
 	public String getLoginName() {
 		return this.loginName;
@@ -226,17 +220,7 @@ public class User extends AbstractPersistable {
 	}
 
 	public boolean isTwoFactorAuth() {
-		return this.twoFactorAuth;
+		return StringUtils.hasText(this.getSecret());
 	}
 
-	public void setTwoFactorAuth(boolean twoFactorAuth) {
-		this.twoFactorAuth = twoFactorAuth;
-	}
-
-	@PostLoad
-	@PostPersist
-	@PostUpdate
-	private void populate() {
-		this.twoFactorAuth = StringUtils.hasText(this.secret);
-	}
 }
