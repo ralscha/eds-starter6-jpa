@@ -34,10 +34,6 @@ Ext.define('Starter.Application', {
 		}, this);
 		// </debug>
 
-		Ext.Ajax.setDefaultHeaders({
-			'X-CSRF-TOKEN': Ext.util.Cookies.get("X-CSRF-TOKEN")
-		});
-
 		var heartbeat = new Ext.direct.PollingProvider({
 			id: 'heartbeat',
 			type: 'polling',
@@ -55,6 +51,19 @@ Ext.define('Starter.Application', {
 		this.callParent(arguments);
 	},
 
+	getCsrfToken: function(callback) {
+		Ext.Ajax.request({
+			url: serverUrl + 'csrf',
+			method: 'GET'
+		}).then(function(r) {
+			var csrfToken = JSON.parse(r.responseText);
+			Ext.Ajax.setDefaultHeaders({
+				'X-CSRF-TOKEN': csrfToken.token
+			});
+			callback.call(this);
+		});
+	},
+
 	launch: function() {
 		Ext.getBody().removeCls('loading');
 		Ext.fly('loading_container').destroy();
@@ -62,27 +71,27 @@ Ext.define('Starter.Application', {
 		var me = this;
 		var token = window.location.search.split('token=')[1];
 		if (token) {
-			me.fireEvent('pwreset', this, token);
+			me.getCsrfToken(function() {
+				me.fireEvent('pwreset', me, token);
+			});
 		}
 		else if (window.location.search === '?logout') {
-			me.fireEvent('logout', this);
+			me.getCsrfToken(function() {
+				me.fireEvent('logout', me);
+			});
 		}
 		else {
+			me.getCsrfToken(function() {
 			securityService.getAuthUser(function(user, e, success) {
-				if (!success && !sessionStorage.getAuthRetry) {
-					sessionStorage.getAuthRetry = true;
-					window.location.reload();
-					return;
-				}
-				sessionStorage.removeItem('getAuthRetry')
-
 				if (user) {
-					me.fireEvent('signedin', this, user);
+						me.fireEvent('signedin', me, user);
 				}
 				else {
-					me.fireEvent('notsignedin', this);
+						me.fireEvent('notsignedin', me);
 				}
 			});
+			});
+
 		}
 	},
 

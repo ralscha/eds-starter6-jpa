@@ -22,7 +22,9 @@ public class UserDetailDto {
 
 	private final boolean preAuth;
 
-	public UserDetailDto(JpaUserDetails userDetails, User user) {
+	private final String csrf;
+
+	public UserDetailDto(JpaUserDetails userDetails, User user, String csrf) {
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.locale = user.getLocale();
@@ -38,6 +40,8 @@ public class UserDetailDto {
 		else {
 			this.autoOpenView = null;
 		}
+
+		this.csrf = csrf;
 	}
 
 	public String getFirstName() {
@@ -62,6 +66,10 @@ public class UserDetailDto {
 
 	public boolean isPreAuth() {
 		return this.preAuth;
+	}
+
+	public String getCsrf() {
+		return this.csrf;
 	}
 
 }

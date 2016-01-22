@@ -40,6 +40,7 @@ import ch.rasc.eds.starter.entity.QUser;
 import ch.rasc.eds.starter.entity.User;
 import ch.rasc.eds.starter.util.JPAQueryFactory;
 import ch.rasc.eds.starter.util.TotpAuthUtil;
+import ch.rasc.eds.starter.web.CsrfController;
 
 @Service
 public class SecurityService {
@@ -70,7 +71,7 @@ public class SecurityService {
 
 		if (jpaUserDetails != null) {
 			User user = jpaUserDetails.getUser(this.jpaQueryFactory);
-			UserDetailDto userDetailDto = new UserDetailDto(jpaUserDetails, user);
+			UserDetailDto userDetailDto = new UserDetailDto(jpaUserDetails, user, null);
 
 			if (!jpaUserDetails.isPreAuth()) {
 				user.setLastAccess(ZonedDateTime.now(ZoneOffset.UTC));
@@ -100,8 +101,8 @@ public class SecurityService {
 				SecurityContextHolder.getContext().setAuthentication(newAuth);
 
 				ExtDirectFormPostResult result = new ExtDirectFormPostResult();
-				result.addResultProperty(AUTH_USER,
-						new UserDetailDto(jpaUserDetails, user));
+				result.addResultProperty(AUTH_USER, new UserDetailDto(jpaUserDetails,
+						user, CsrfController.getCsrfToken(request)));
 				return result;
 			}
 
@@ -208,7 +209,7 @@ public class SecurityService {
 
 					result = new ExtDirectFormPostResult();
 					result.addResultProperty(AUTH_USER,
-							new UserDetailDto(principal, user));
+							new UserDetailDto(principal, user, null));
 				}
 				else {
 					result = new ExtDirectFormPostResult(false);
@@ -238,7 +239,7 @@ public class SecurityService {
 
 			SecurityContextHolder.getContext().setAuthentication(token);
 
-			return new UserDetailDto(principal, switchToUser);
+			return new UserDetailDto(principal, switchToUser, null);
 		}
 
 		return null;

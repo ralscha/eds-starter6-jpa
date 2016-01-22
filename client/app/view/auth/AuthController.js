@@ -27,14 +27,13 @@ Ext.define('Starter.view.auth.AuthController', {
 		form.submit({
 			clientValidation: true,
 			success: function(form, action) {
-
-				Ext.Ajax.setDefaultHeaders({
-					'X-CSRF-TOKEN': Ext.util.Cookies.get("X-CSRF-TOKEN")
-				});
-
 				var authUser = action.result.authUser;
 
 				if (authUser) {
+				Ext.Ajax.setDefaultHeaders({
+						'X-CSRF-TOKEN': authUser.csrf
+				});
+
 					me.fireEvent('signedin', this, authUser);
 				}
 

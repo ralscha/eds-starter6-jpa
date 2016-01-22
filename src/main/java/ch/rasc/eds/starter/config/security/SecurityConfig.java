@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.csrf.CsrfFilter;
 
 import ch.rasc.eds.starter.config.AppProperties;
 
@@ -52,7 +51,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    //.frameOptions().sameOrigin()
 		  //  .and()
 		  .authorizeRequests()
-		    .antMatchers("/index.html", "/", "/router").permitAll()
+		    .antMatchers("/index.html", "/csrf", "/", "/router").permitAll()
 		    .antMatchers("/info", "/health").permitAll()
 		    .anyRequest().authenticated()
 		    .and()
@@ -71,10 +70,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    .permitAll()
 		    .and()
 		  .exceptionHandling()
-            .authenticationEntryPoint(new Http401UnauthorizedEntryPoint())
-            .and()
-          // .csrf().disable()
-          .addFilterAfter(new CsrfCookieFilter(), CsrfFilter.class);
+            .authenticationEntryPoint(new Http401UnauthorizedEntryPoint());
 		// @formatter:on
 	}
 

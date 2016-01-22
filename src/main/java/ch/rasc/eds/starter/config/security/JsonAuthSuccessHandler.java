@@ -22,6 +22,7 @@ import ch.rasc.eds.starter.dto.UserDetailDto;
 import ch.rasc.eds.starter.entity.User;
 import ch.rasc.eds.starter.service.SecurityService;
 import ch.rasc.eds.starter.util.JPAQueryFactory;
+import ch.rasc.eds.starter.web.CsrfController;
 
 @Component
 public class JsonAuthSuccessHandler implements AuthenticationSuccessHandler {
@@ -52,11 +53,9 @@ public class JsonAuthSuccessHandler implements AuthenticationSuccessHandler {
 			if (!jpaUserDetails.isPreAuth()) {
 				user.setLastAccess(ZonedDateTime.now(ZoneOffset.UTC));
 			}
-			result.put(SecurityService.AUTH_USER,
-					new UserDetailDto(jpaUserDetails, user));
+			result.put(SecurityService.AUTH_USER, new UserDetailDto(jpaUserDetails, user,
+					CsrfController.getCsrfToken(request)));
 		}
-
-		CsrfCookieFilter.addCsrfCookie(request, response);
 
 		response.getWriter().print(this.objectMapper.writeValueAsString(result));
 		response.getWriter().flush();
