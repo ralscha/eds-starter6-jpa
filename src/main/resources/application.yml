@@ -85,7 +85,6 @@ server:
      mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript,image/svg+xml,application/x-font-ttf,application/x-font-truetype,application/x-font-opentype,application/vnd.ms-fontobject,application/font-sfnt     
   use-forward-headers: true
 
-    
 logging:
   level:
     org.springframework: WARN
@@ -94,3 +93,12 @@ logging:
     liquibase: WARN
     ch: WARN
   file: ./app.log
+
+endpoints:
+  metrics:
+    enabled: false
+    filter:
+      enabled: false
+
+management:
+  add-application-context-header: false
