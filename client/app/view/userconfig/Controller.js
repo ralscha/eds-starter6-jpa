@@ -46,9 +46,8 @@ Ext.define('Starter.view.userconfig.Controller', {
 		store.clear();
 	},
 
-	destroyPersistentLogin: function(grid, rowIndex, colIndex) {
-		var rec = this.getStore('persistentLogins').getAt(rowIndex);
-		rec.erase({
+	destroyPersistentLogin: function(view, rowIndex, colIndex, item, e, record, row) {
+		record.erase({
 			callback: function() {
 				Starter.Util.successToast(i18n.destroysuccessful);
 			}

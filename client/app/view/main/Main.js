@@ -26,10 +26,15 @@ Ext.define('Starter.view.main.Main', {
 			html: '<div><i class="x-fa fa-rocket"></i><span>' + i18n.app_name + '</span></div>',
 			width: 250
 		}, {
-			margin: '0 0 0 8',
 			cls: 'no-bg-button',
 			iconCls: 'x-fa fa-navicon',
 			handler: 'onToggleNavigationSize'
+		}, {
+			xtype: 'tbtext',
+			cls: 'navigation-title',
+			bind: {
+				text: '{navigationTitle}'
+			}
 		}, {
 			xtype: 'tbspacer',
 			flex: 1
@@ -63,6 +68,10 @@ Ext.define('Starter.view.main.Main', {
 			width: 250,
 			expanderFirst: false,
 			expanderOnly: false,
+			animation: {
+				duration: 100,
+				easing: 'ease'
+			},
 			listeners: {
 				selectionchange: 'onNavigationTreeSelectionChange'
 			}

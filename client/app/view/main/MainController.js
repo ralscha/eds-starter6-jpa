@@ -12,7 +12,8 @@ Ext.define('Starter.view.main.MainController', {
 			'*': {
 				signedin: 'onSignedIn',
 				notsignedin: 'onNotSignedIn',
-				logout: 'onLogout'
+				logout: 'onLogout',
+				navigationChanged: 'onNavigationChanged'
 			}
 		}
 	},
@@ -249,6 +250,10 @@ Ext.define('Starter.view.main.MainController', {
 		}
 	},
 
+	onNavigationChanged: function(source, title) {
+		this.getViewModel().set('navigationTitle', title);
+	},
+	
 	setCurrentView: function(hashTag, internal) {
 		var view;
 		var navigationTreeList = this.lookup('navigationTreeList');
@@ -262,13 +267,21 @@ Ext.define('Starter.view.main.MainController', {
 				navigationTreeList.setSelection(node);
 				navigationTreeList.resumeEvent('selectionchange');
 				view = node.get('view');
+				this.getViewModel().set('navigationTitle', node.get('text'));
 			}
 			else {
+				this.getViewModel().set('navigationTitle', null);
 				navigationTreeList.setSelection(null);
 				view = null;
 			}
 		}
 		else {
+			if (hashTag === 'userconfig.Panel') {
+				this.getViewModel().set('navigationTitle', i18n.userconfig);
+			}
+			else {
+				this.getViewModel().set('navigationTitle', null);
+			}
 			navigationTreeList.setSelection(null);
 			view = hashTag;
 		}
@@ -313,7 +326,6 @@ Ext.define('Starter.view.main.MainController', {
 	},
 
 	onLogoutClick: function() {
-		var me = this;
 		Ext.Ajax.request({
 			url: serverUrl + 'logout',
 			method: 'POST'

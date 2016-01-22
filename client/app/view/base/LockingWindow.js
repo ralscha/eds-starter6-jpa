@@ -11,7 +11,7 @@ Ext.define('Starter.view.base.LockingWindow', {
 	autoShow: true,
 	titleAlign: 'center',
 	maximized: true,
-	modal: false,
+	modal: true,
 
 	layout: {
 		type: 'vbox',

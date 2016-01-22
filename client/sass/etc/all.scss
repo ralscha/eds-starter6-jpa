@@ -9,16 +9,27 @@
 ::-webkit-input-placeholder { 
    color: lighten($form-text-field-color, 60%);
 }
+
 :-moz-placeholder { 
    color: lighten($form-text-field-color, 60%);
-   opacity: 1;
 }
+
 ::-moz-placeholder {
    color: lighten($form-text-field-color, 60%);
-   opacity: 1;
 }
+
 :-ms-input-placeholder {
    color: lighten($form-text-field-color, 60%);
+  opacity: 0.4;
+}
+
+::-ms-input-placeholder {
+  color: lighten($form-text-field-color, 60%);
+  opacity: 0.4;
+}
+
+:placeholder-shown {
+  color: lighten($form-text-field-color, 60%);
 }
 
 @mixin btn-border($background-color){
@@ -68,4 +79,8 @@
 .x-fa {
   display: inline-block;
   font: normal normal normal 14px/1 $font-family;
+}
+
+.navigation-title {
+  font-size: 17px !important;
 }

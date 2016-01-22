@@ -80,6 +80,7 @@ Ext.define('Starter.view.base.ViewController', {
 					Starter.Util.successToast(i18n.savesuccessful);
 					this.getStore(this.getObjectStoreName()).reload();
 					this.back();
+					this.afterSuccessfulSave();
 				},
 				failure: function(record, operation) {
 					Starter.Util.errorToast(i18n.inputcontainserrors);
@@ -94,6 +95,8 @@ Ext.define('Starter.view.base.ViewController', {
 		}
 	},
 
+	afterSuccessfulSave: Ext.emptyFn,
+	
 	eraseObject: function(errormsg, successCallback, failureCallback, scope) {
 		var selectedObject = this.getSelectedObject();
 		if (!selectedObject) {

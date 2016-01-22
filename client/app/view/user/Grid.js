@@ -6,7 +6,7 @@ Ext.define('Starter.view.user.Grid', {
 
 	height: 100,
 	beforeLayout: function() {
-		this.height = Ext.Element.getViewportHeight() - 74;
+		this.height = Ext.Element.getViewportHeight() - 60;
 		this.callParent(arguments);
 	},
 
@@ -63,7 +63,7 @@ Ext.define('Starter.view.user.Grid', {
 			if (value === true) {
 				return '<span class="label label-success">' + i18n.yes + '</span>';
 			}
-			return '<span class="label label-warning">' + i18n.no + '</span>';
+			return '<span class="label label-error">' + i18n.no + '</span>';
 		},
 		stateId: 'view.user.Grid.enabled'
 	}, {
@@ -73,7 +73,7 @@ Ext.define('Starter.view.user.Grid', {
 		align: 'center',
 		defaultRenderer: function(value) {
 			if (value) {
-				return '<span class="label label-warning">' + i18n.yes + '</span>';
+				return '<span class="label label-error">' + i18n.yes + '</span>';
 			}
 			return '<span class="label label-success">' + i18n.no + '</span>';
 		},
