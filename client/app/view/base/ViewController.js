@@ -68,7 +68,7 @@ Ext.define('Starter.view.base.ViewController', {
 		this.getView().getLayout().getNext().destroy();
 	},
 
-	save: function() {
+	save: function(callback) {
 		var form = this.lookup('editPanel').getForm();
 		if (form.isValid()) {
 			this.getView().mask(i18n.saving);
@@ -81,6 +81,9 @@ Ext.define('Starter.view.base.ViewController', {
 					this.getStore(this.getObjectStoreName()).reload();
 					this.back();
 					this.afterSuccessfulSave();
+					if (Ext.isFunction(callback)) {
+						callback.call(this);
+					}
 				},
 				failure: function(record, operation) {
 					Starter.Util.errorToast(i18n.inputcontainserrors);
@@ -96,7 +99,7 @@ Ext.define('Starter.view.base.ViewController', {
 	},
 
 	afterSuccessfulSave: Ext.emptyFn,
-	
+
 	eraseObject: function(errormsg, successCallback, failureCallback, scope) {
 		var selectedObject = this.getSelectedObject();
 		if (!selectedObject) {
