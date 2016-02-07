@@ -51,19 +51,6 @@ Ext.define('Starter.Application', {
 		this.callParent(arguments);
 	},
 
-	getCsrfToken: function(callback) {
-		Ext.Ajax.request({
-			url: serverUrl + 'csrf',
-			method: 'GET'
-		}).then(function(r) {
-			var csrfToken = JSON.parse(r.responseText);
-			Ext.Ajax.setDefaultHeaders({
-				'X-CSRF-TOKEN': csrfToken.token
-			});
-			callback.call(this);
-		});
-	},
-
 	launch: function() {
 		Ext.getBody().removeCls('loading');
 		Ext.fly('loading_container').destroy();
@@ -71,25 +58,21 @@ Ext.define('Starter.Application', {
 		var me = this;
 		var token = window.location.search.split('token=')[1];
 		if (token) {
-			me.getCsrfToken(function() {
-				me.fireEvent('pwreset', me, token);
-			});
+			me.fireEvent('pwreset', me, token);
 		}
 		else if (window.location.search === '?logout') {
-			me.getCsrfToken(function() {
-				me.fireEvent('logout', me);
-			});
+			me.fireEvent('logout', me);
 		}
 		else {
-			me.getCsrfToken(function() {
-			securityService.getAuthUser(function(user, e, success) {
-				if (user) {
+			Starter.Util.getCsrfToken().then(function() {
+				securityService.getAuthUser(function(user, e, success) {
+					if (user) {
 						me.fireEvent('signedin', me, user);
-				}
-				else {
+					}
+					else {
 						me.fireEvent('notsignedin', me);
-				}
-			});
+					}
+				});
 			});
 
 		}

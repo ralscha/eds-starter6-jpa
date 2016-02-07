@@ -22,25 +22,26 @@ Ext.define('Starter.view.auth.AuthController', {
 
 	onLoginButtonClick: function() {
 		var me = this;
-		var form = this.getView().getForm();
+		var form = me.getView().getForm();
 
-		form.submit({
-			clientValidation: true,
-			success: function(form, action) {
-				var authUser = action.result.authUser;
+		Starter.Util.getCsrfToken().then(function() {
+			form.submit({
+				clientValidation: true,
+				success: function(form, action) {
+					var authUser = action.result.authUser;
 
-				if (authUser) {
-				Ext.Ajax.setDefaultHeaders({
-						'X-CSRF-TOKEN': authUser.csrf
-				});
+					if (authUser) {
+						Ext.Ajax.setDefaultHeaders({
+							'X-CSRF-TOKEN': authUser.csrf
+						});
 
-					me.fireEvent('signedin', this, authUser);
+						me.fireEvent('signedin', this, authUser);
+					}
+				},
+				failure: function(form, action) {
+					Starter.Util.errorToast(i18n.auth_signin_failed);
 				}
-
-			},
-			failure: function(form, action) {
-				Starter.Util.errorToast(i18n.auth_signin_failed);
-			}
+			});
 		});
 	},
 
@@ -73,13 +74,15 @@ Ext.define('Starter.view.auth.AuthController', {
 
 	onResetRequestClick: function() {
 		var me = this;
-		var form = this.getView().getForm();
+		var form = me.getView().getForm();
 
-		form.submit({
-			clientValidation: true,
-			success: function(form, action) {
-				me.redirectTo('auth.pwresetconfirm');
-			}
+		Starter.Util.getCsrfToken().then(function() {
+			form.submit({
+				clientValidation: true,
+				success: function(form, action) {
+					me.redirectTo('auth.pwresetconfirm');
+				}
+			});
 		});
 	},
 
@@ -90,22 +93,24 @@ Ext.define('Starter.view.auth.AuthController', {
 		var me = this;
 		var form = this.getView().getForm();
 
-		form.submit({
-			clientValidation: true,
-			params: {
-				token: token
-			},
-			success: function(form, action) {
-				delete Starter.app.pwResetToken;
-				var authUser = action.result.authUser;
+		Starter.Util.getCsrfToken().then(function() {
+			form.submit({
+				clientValidation: true,
+				params: {
+					token: token
+				},
+				success: function(form, action) {
+					delete Starter.app.pwResetToken;
+					var authUser = action.result.authUser;
 
-				if (authUser) {
-					me.fireEvent('signedin', this, authUser);
+					if (authUser) {
+						me.fireEvent('signedin', this, authUser);
+					}
+				},
+				failure: function(form, action) {
+					me.redirectTo('auth.signin', true);
 				}
-			},
-			failure: function() {
-				me.redirectTo('auth.signin', true);
-			}
+			});
 		});
 	},
 

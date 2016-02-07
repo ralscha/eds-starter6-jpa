@@ -2,6 +2,18 @@ Ext.define('Starter.Util', {
 	singleton: true,
 	requires: [ 'Ext.window.Toast' ],
 
+	getCsrfToken: function() {
+		return Ext.Ajax.request({
+			url: serverUrl + 'csrf',
+			method: 'GET'
+		}).then(function(r) {
+			var csrfToken = JSON.parse(r.responseText);
+			Ext.Ajax.setDefaultHeaders({
+				'X-CSRF-TOKEN': csrfToken.token
+			});
+		});
+	},
+
 	successToast: function(msg) {
 		Ext.toast({
 			html: msg,
