@@ -91,14 +91,14 @@ Ext.define('Starter.view.user.Form', {
 			iconCls: 'x-fa fa-envelope-o',
 			handler: 'sendPwResetReq',
 			bind: {
-				hidden: '{isPhantomObject}'
+				hidden: '{isUserDisabled}'
 			}
 		}, {
 			text: i18n.user_switchto,
 			iconCls: 'x-fa fa-user-secret',
 			handler: 'switchTo',
 			bind: {
-				hidden: '{isPhantomObject}'
+				hidden: '{isUserDisabled}'
 			}
 		}, {
 			text: i18n.user_unlock,

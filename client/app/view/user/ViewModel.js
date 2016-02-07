@@ -27,6 +27,15 @@ Ext.define('Starter.view.user.ViewModel', {
 	},
 
 	formulas: {
+		isUserDisabled: {
+			bind: {
+				bindTo: '{selectedObject}',
+				deep: true
+			},
+			get: function(selectedObject) {
+				return !selectedObject || selectedObject.phantom || !selectedObject.get('enabled');
+			}
+		},
 		isPhantomObject: {
 			bind: {
 				bindTo: '{selectedObject}',
