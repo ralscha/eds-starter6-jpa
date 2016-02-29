@@ -21,7 +21,7 @@
 	
 	<target name="init.ext" if="download.ext" depends="-check.ext">
 	    <delete dir="ext" quiet="true"/>
-        <get src="https://repo.rasc.ch/ext-${app.framework.version}.zip" dest="${basedir}"/>
+        <get src="http://repo.rasc.ch/ext-${app.framework.version}.zip" dest="${basedir}"/>
 		<unzip src="ext-${app.framework.version}.zip" dest="ext"/>
 		<delete file="ext-${app.framework.version}.zip" />
     </target>
