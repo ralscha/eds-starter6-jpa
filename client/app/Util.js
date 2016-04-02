@@ -18,9 +18,12 @@ Ext.define('Starter.Util', {
 		Ext.toast({
 			html: msg,
 			title: i18n.successful,
-			align: 't',
+			align: 'br',
 			shadow: true,
 			width: 200,
+			height: 100,
+			paddingX: 20,
+			paddingY: 20,			
 			slideInDuration: 100,
 			hideDuration: 100,
 			bodyStyle: {
@@ -36,9 +39,12 @@ Ext.define('Starter.Util', {
 		Ext.toast({
 			html: msg,
 			title: i18n.error,
-			align: 't',
+			align: 'br',
 			shadow: true,
 			width: 200,
+			height: 100,
+			paddingX: 20,
+			paddingY: 20,
 			slideInDuration: 100,
 			hideDuration: 100,
 			bodyStyle: {

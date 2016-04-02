@@ -11,6 +11,7 @@ security:
     - /ext/**
     - /**/*.js
     - /bootstrap.json
+    - /robots.txt
 
 server:
   port: 8080

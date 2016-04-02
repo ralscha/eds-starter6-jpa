@@ -61,7 +61,8 @@ Ext.define('Starter.view.user.Form', {
 		forceSelection: true,
 		autoSelect: true,
 		editable: false,
-		selectOnFocus: false
+		selectOnFocus: false,
+		filterPickList: true
 	} ],
 
 	dockedItems: [ {

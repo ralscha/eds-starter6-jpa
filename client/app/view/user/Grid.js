@@ -84,6 +84,10 @@ Ext.define('Starter.view.user.Grid', {
 		xtype: 'toolbar',
 		dock: 'top',
 		items: [ {
+			text: i18n.create,
+			iconCls: 'x-fa fa-plus',
+			handler: 'newObject'
+		}, {
 			emptyText: i18n.filter,
 			xtype: 'textfield',
 			width: 250,
@@ -96,10 +100,6 @@ Ext.define('Starter.view.user.Grid', {
 					buffer: 500
 				}
 			}
-		}, {
-			text: i18n.create,
-			iconCls: 'x-fa fa-plus',
-			handler: 'newObject'
 		} ]
 	}, {
 		xtype: 'toolbar',

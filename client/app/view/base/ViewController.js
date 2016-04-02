@@ -42,7 +42,8 @@ Ext.define('Starter.view.base.ViewController', {
 		}
 	},
 
-	onItemclick: function() {
+	onItemclick: function(store, record) {
+    	this.getViewModel().set(this.getSelectedObjectName(), record);
 		this.edit();
 	},
 
@@ -74,13 +75,13 @@ Ext.define('Starter.view.base.ViewController', {
 			this.getView().mask(i18n.saving);
 
 			var selectedObject = this.getSelectedObject();
+			this.preSave(selectedObject);
 			selectedObject.save({
 				scope: this,
 				success: function(record, operation) {
-					Starter.Util.successToast(i18n.savesuccessful);
-					this.getStore(this.getObjectStoreName()).reload();
-					this.back();
 					this.afterSuccessfulSave();
+					Starter.Util.successToast(i18n.savesuccessful);
+					this.back();
 					if (Ext.isFunction(callback)) {
 						callback.call(this);
 					}
@@ -97,8 +98,11 @@ Ext.define('Starter.view.base.ViewController', {
 
 		}
 	},
+	preSave: Ext.emptyFn,
 
-	afterSuccessfulSave: Ext.emptyFn,
+	afterSuccessfulSave: function() {
+		this.getStore(this.getObjectStoreName()).reload();
+	},
 
 	eraseObject: function(errormsg, successCallback, failureCallback, scope) {
 		var selectedObject = this.getSelectedObject();
