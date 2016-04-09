@@ -397,7 +397,7 @@
         </x-compile>
     </target>
     
-    <target name="-init-web-server">
+    <target name="-init-web-server" unless="skip.web.start">
         <x-server port="${build.web.port}" 
                   portPropertyName="build.web.port"
                   defaultSassFile="${app.out.scss}"
