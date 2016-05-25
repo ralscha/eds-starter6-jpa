@@ -365,7 +365,7 @@
         },
         "js": [
             {
-                "path": "phonegap.js",
+                "path": "cordova.js",
                 "remote": true,
                 "priority": 1000
             }
