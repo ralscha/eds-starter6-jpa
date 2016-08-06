@@ -6,12 +6,7 @@ spring:
 
 security:
   ignored:
-    - /resources/**
-    - /build/**
-    - /ext/**
-    - /**/*.js
-    - /bootstrap.json
-    - /robots.txt
+    - none
 
 server:
   port: 8080

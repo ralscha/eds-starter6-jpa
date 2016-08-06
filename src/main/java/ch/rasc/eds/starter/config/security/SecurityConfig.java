@@ -3,9 +3,11 @@ package ch.rasc.eds.starter.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,15 +33,30 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthenticationSuccessHandler authenticationSuccessHandler;
 
+	@Autowired
+	private Environment environment;
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(12);
 	}
 
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		if (environment.acceptsProfiles("development")) {
+			web.ignoring().antMatchers("/resources/**", "/build/**", "/ext/**",
+					"/**/*.js", "/bootstrap.json", "/robots.txt");
+		}
+		else {
+			web.ignoring().antMatchers("/resources/**", "/app.js", "/app.json",
+					"/locale-de.js", "/i18n-de.js", "/i18n-en.js", "/robots.txt");
+		}
+	}
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth,
 			UserDetailsService userDetailsService, PasswordEncoder passwordEncoder)
-					throws Exception {
+			throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
 
