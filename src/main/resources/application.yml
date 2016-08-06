@@ -44,21 +44,22 @@ spring:
         password: sa
         #url: jdbc:mysql://localhost/starter6?useUnicode=yes&characterEncoding=UTF-8
         #username: root
-        #password: root        
-        max-active: 100
-        max-idle: 10
-        min-idle: 4
-        initial-size: 4
-        validation-query: select 1
-        test-on-borrow: true
-        test-on-return: false
-        test-while-idle: true
-        time-between-eviction-runs-millis: 120000
-        min-evictable-idle-time-millis: 60000
-        max-wait: 10000
-        remove-abandoned: true
-        validation-interval: 120000
-        remove-abandoned-timeout: 600
+        #password: root
+        tomcat:
+          max-active: 100
+          max-idle: 10
+          min-idle: 4
+          initial-size: 4
+          validation-query: select 1
+          test-on-borrow: true
+          test-on-return: false
+          test-while-idle: true
+          time-between-eviction-runs-millis: 120000
+          min-evictable-idle-time-millis: 60000
+          max-wait: 10000
+          remove-abandoned: true
+          validation-interval: 120000
+          remove-abandoned-timeout: 600
         jmx-enabled: false
 
   async:
@@ -69,7 +70,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
 
   main:
     banner-mode: log       

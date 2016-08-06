@@ -11,7 +11,6 @@ public class WebFontMimeMapper implements EmbeddedServletContainerCustomizer {
 	@Override
 	public void customize(ConfigurableEmbeddedServletContainer container) {
 		MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-		mappings.add("svg", "image/svg+xml");
 		mappings.add("eot", "application/vnd.ms-fontobject");
 		mappings.add("woff", "application/font-woff");
 		mappings.add("woff2", "application/font-woff2");

@@ -21,7 +21,6 @@ public class WebConfig {
 		ch.ralscha.extdirectspring.controller.Configuration config = new ch.ralscha.extdirectspring.controller.Configuration();
 		config.setExceptionToMessage(
 				Collections.singletonMap(AccessDeniedException.class, "accessdenied"));
-		config.setMaxRetries(0);
 		return config;
 	}
 

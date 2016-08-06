@@ -2,7 +2,7 @@ spring:
   jpa:
     show-sql: true
   resources:
-    cache-period:
+    cache-period: 0
 
 security:
   ignored:

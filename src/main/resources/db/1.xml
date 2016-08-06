@@ -22,7 +22,7 @@
 			<column name="password_hash" type="varchar(255)" />
 			<column name="authorities" type="varchar(255)" />
 			<column name="locale" type="varchar(8)" />
-			<column name="secret" type="char(16)" />			
+			<column name="secret" type="varchar(16)" />			
 			<column name="enabled" type="BOOLEAN" />
             <column name="failed_logins" type="INT" />            
             <column name="locked_out_until" type="datetime" />

@@ -20,6 +20,7 @@ Ext.define('Starter.Application', {
 		});
 
 		REMOTING_API.url = serverUrl + REMOTING_API.url;
+		REMOTING_API.maxRetries = 0;
 
 		Ext.direct.Manager.addProvider(REMOTING_API, heartbeat);
 		Ext.direct.Manager.getProvider('heartbeat').disconnect();

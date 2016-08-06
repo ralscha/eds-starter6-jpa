@@ -18,7 +18,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.3.5.RELEASE</version>
+		<version>1.4.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -26,8 +26,8 @@
 	    <start-class>ch.rasc.eds.starter.Application</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<querydsl.version>4.1.1</querydsl.version>
-		<maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ssZ</maven.build.timestamp.format>
+		<querydsl.version>4.1.3</querydsl.version>
+		<maven.build.timestamp.format>yyyy-MM-dd'T'HH-mm-ssZ</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 	</properties>
 
@@ -73,7 +73,7 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
-		
+	
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -94,19 +94,19 @@
 		<dependency>
 			<groupId>ch.ralscha</groupId>
 			<artifactId>extdirectspring</artifactId>
-			<version>1.6.1</version>
+			<version>1.7.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>ch.rasc</groupId>
 			<artifactId>extclassgenerator-annotations</artifactId>
-			<version>1.0.9</version>
+			<version>1.0.10</version>
 		</dependency>
 
 		<dependency>
 			<groupId>eu.bitwalker</groupId>
 			<artifactId>UserAgentUtils</artifactId>
-			<version>1.19</version>
+			<version>1.20</version>
 		</dependency>
 
 		<dependency>
@@ -129,7 +129,7 @@
 		<dependency>
 			<groupId>de.danielbechler</groupId>
 			<artifactId>java-object-diff</artifactId>
-			<version>0.93.2</version>
+			<version>0.94</version>
 		</dependency>
 
 		<dependency>
@@ -172,6 +172,42 @@
 					<compilerArgument>-parameters</compilerArgument>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.4.2</version>
+				<configuration>
+					<changeLogFile>src/main/resources/db/changelog.xml</changeLogFile>
+					<diffChangeLogFile>src/main/resources/db/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
+					<url>jdbc:mysql://localhost/starter6</url>
+					<defaultSchemaName></defaultSchemaName>
+					<username>root</username>
+					<password>root</password>
+					<referenceUrl>hibernate:spring:ch.rasc.eds.starter.entity?dialect=org.hibernate.dialect.MySQL5Dialect&amp;hibernate.ejb.naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy</referenceUrl>
+					<verbose>true</verbose>
+					<logging>debug</logging>
+					<diffExcludeObjects>table:jv_.*,sequence:jv_.*,sequence:.*_id_.*</diffExcludeObjects>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.javassist</groupId>
+						<artifactId>javassist</artifactId>
+						<version>3.18.2-GA</version>
+					</dependency>
+					<dependency>
+						<groupId>org.liquibase.ext</groupId>
+						<artifactId>liquibase-hibernate4</artifactId>
+						<version>3.5</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-data-jpa</artifactId>
+						<version>${project.parent.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -232,7 +268,7 @@
 					<dependency>
 						<groupId>ch.rasc</groupId>
 						<artifactId>extclassgenerator</artifactId>
-						<version>1.0.9</version>
+						<version>1.0.10</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -240,6 +276,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
 				<executions>
 					<execution>
 						<id>sencha-app-clean-development</id>
