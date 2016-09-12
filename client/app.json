@@ -95,14 +95,25 @@
         "namespace": "Starter",
 
         /**
-         * File used to save sass variables edited via Sencha Inspector. This file
-         * will automatically be applied to the end of the scss build.
+         * Generated sass source settings
          *
-         *      "save": "sass/save.scss"
+         *      "generated": {
+         *         // The file used to save sass variables edited via Sencha Inspector and Sencha Themer.
+         *         // This file will automatically be applied to the end of the scss build.
+         *         "var": "sass/save.scss",
+         *      
+         *         // The directory used to save generated sass sources.
+         *         // This directory will automatically be applied to the end of the scss build.
+         *         "src": "sass/save"
+         *      }
          *
          */
          
-        // "save": "sass/save.scss",
+        "generated": {
+            "var": "sass/save.scss",
+            "src": "sass/save"
+        },
+        
         
         /**
          * Comma-separated list of files or folders containing extra Sass. These
@@ -216,7 +227,7 @@
      */
     "js": [
         {
-            "path": "${framework.dir}/build/ext-all-rtl-debug.js"
+            "path": "${framework.dir}/build/ext-all-debug.js"
         },
         {
         	"path": "api.js",
@@ -322,13 +333,9 @@
      * Settings specific to development builds.
      */
     "development": {
-        "tags": [
-            // You can add this tag to enable Fashion when using app watch or
-            // you can add "?platformTags=fashion:1" to the URL to enable Fashion
-            // without changing this file.
-            //
-            // "fashion"
-        ]
+        "watch": {
+            "delay": 250
+        }
     },
 
     /**
@@ -471,14 +478,6 @@
     ],
 
     /**
-     * File / directory name patttern to ignore when copying to the builds. Must be a
-     * valid regular expression.
-     */
-    "ignore": [
-        "(^|/)CVS(/?$|/.*?$)"
-    ],
-
-    /**
      * Directory path to store all previous production builds. Note that the content
      * generated inside this directory must be kept intact for proper generation of
      * deltas between updates.
@@ -489,26 +488,25 @@
 
 
     /**
-     * The space config object is used by the "sencha app publish" command to publish
-     * a version of this application to Sencha Web Application Manager:
-     *
-     *      "manager": {
-     *          // the space id for this application
-     *          "id": 12345,
-     *
-     *          // space host
-     *          "host": "https://api.space.sencha.com/json.rpc",
-     *
-     *          // Either a zip file path or a folder to be zipped
-     *          // this example shows how to publish the root folder for all build profiles
-     *          "file": "${app.output.base}/../",
-     *
-     *          // These may be specified here, but are best specified in your user
-     *          // ~/.sencha/cmd/sencha.cfg file
-     *          "apiKey": "",
-     *          "secret": ""
-     *      }
+     * Additional resources used during theme slicing operations
      */
+    "slicer": {
+        "js": [
+            {
+                "path": "sass/example/custom.js",
+                "isWidgetManifest": true
+            }
+        ],
+        "output": {
+            "appCache": {
+                "enable": false
+            }
+        },
+        "cache": {
+            "enable": false
+        }
+    },
+
 
     /**
      * Build Profiles. This object's properties are each a "build profile". You can
@@ -519,6 +517,14 @@
      *
      */
     
+
+    /**
+     * File / directory name patttern to ignore when copying to the builds. Must be a
+     * valid regular expression.
+     */
+    "ignore": [
+        "(^|/)CVS(/?$|/.*?$)"
+    ],
 
     /**
      * Uniquely generated id for this application, used as prefix for localStorage keys.

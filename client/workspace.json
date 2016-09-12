@@ -22,7 +22,10 @@
      *
      */
     "frameworks": {
-        "ext": "ext"
+        "ext": {
+            "path":"ext",
+            "version":"6.2.0.981"
+        }
     },
 
     /**
