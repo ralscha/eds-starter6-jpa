@@ -19,14 +19,15 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.1.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
 
 	<properties>
-	    <start-class>ch.rasc.eds.starter.Application</start-class>
+		<start-class>ch.rasc.eds.starter.Application</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<querydsl.version>4.1.4</querydsl.version>
+		<hibernate.version>5.2.4.Final</hibernate.version>
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH-mm-ssZ</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 	</properties>
@@ -73,19 +74,18 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
-	
-		<dependency>
+
+ 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-		
-		<!-- 
-		<dependency>
+
+<!-- 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-        -->
-		
+			<version>6.0.4</version>
+		</dependency> -->
+
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
@@ -153,7 +153,7 @@
 	</dependencies>
 
 	<build>
-	    <finalName>eds-starter6-jpa</finalName>
+		<finalName>eds-starter6-jpa</finalName>
 		<plugins>
 
 			<plugin>
@@ -166,7 +166,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
-				    <debug>true</debug>
+					<debug>true</debug>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<compilerArgument>-parameters</compilerArgument>
@@ -176,38 +176,51 @@
 			<plugin>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
-				<version>3.4.2</version>
+				<version>3.5.3</version>
 				<configuration>
 					<changeLogFile>src/main/resources/db/changelog.xml</changeLogFile>
 					<diffChangeLogFile>src/main/resources/db/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
-					<url>jdbc:mysql://localhost/starter6</url>
+					<url>jdbc:mysql://localhost/starter6?nullNamePatternMatchesAll=true&amp;useSSL=false</url>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
 					<defaultSchemaName></defaultSchemaName>
 					<username>root</username>
 					<password>root</password>
-					<referenceUrl>hibernate:spring:ch.rasc.eds.starter.entity?dialect=org.hibernate.dialect.MySQL5Dialect&amp;hibernate.ejb.naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy</referenceUrl>
+					<systemProperties>
+                        <user.name>dev</user.name>
+                    </systemProperties>					
+					<referenceUrl>hibernate:spring:ch.rasc.eds.starter.entity?dialect=org.hibernate.dialect.MySQL5Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
 					<verbose>true</verbose>
 					<logging>debug</logging>
 					<diffExcludeObjects>table:jv_.*,sequence:jv_.*,sequence:.*_id_.*</diffExcludeObjects>
 				</configuration>
 				<dependencies>
 					<dependency>
-						<groupId>org.javassist</groupId>
-						<artifactId>javassist</artifactId>
-						<version>3.18.2-GA</version>
+						<groupId>org.liquibase.ext</groupId>
+						<artifactId>liquibase-hibernate5</artifactId>
+						<version>3.6</version>
 					</dependency>
 					<dependency>
-						<groupId>org.liquibase.ext</groupId>
-						<artifactId>liquibase-hibernate4</artifactId>
-						<version>3.5</version>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>6.0.4</version>
 					</dependency>
 					<dependency>
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-starter-data-jpa</artifactId>
 						<version>${project.parent.version}</version>
+					</dependency>				
+					<dependency>
+						<artifactId>hibernate-validator</artifactId>
+						<groupId>org.hibernate</groupId>
+						<version>5.2.4.Final</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.el</groupId>
+						<artifactId>el-api</artifactId>
+						<version>2.2</version>
 					</dependency>
 				</dependencies>
 			</plugin>
-
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -360,17 +373,17 @@
 								<replace file="${basedir}/target/classes/static/index.html">
 									<replacefilter token="var serverUrl = 'http://localhost:8080/';"
 										value="var serverUrl = '';" />
-										
+
 									<replacefilter token="var i18nEnUrl = 'i18n-en.js';"
 										value="var i18nEnUrl = 'i18n-en.js?_dc=${i18n_en_sha1}';" />
-										
+
 									<replacefilter token="var i18nDeUrl = 'i18n-de.js';"
 										value="var i18nDeUrl = 'i18n-de.js?_dc=${i18n_de_sha1}';" />
 
 								</replace>
-	
+
 								<replaceregexp file="${basedir}/target/classes/static/index.html"
-                                               match="&lt;!--.*--&gt;" replace="" />
+									match="&lt;!--.*--&gt;" replace="" />
 
 							</target>
 						</configuration>

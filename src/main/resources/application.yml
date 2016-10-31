@@ -36,9 +36,10 @@ spring:
         url: jdbc:h2:./db/test
         username: sa
         password: sa
-        #url: jdbc:mysql://localhost/starter6?useUnicode=yes&characterEncoding=UTF-8
+        #driver-class-name: com.mysql.cj.jdbc.Driver
+        #url: jdbc:mysql://localhost/starter6?nullNamePatternMatchesAll=true&useSSL=false
         #username: root
-        #password: root
+        #password: root        
         tomcat:
           max-active: 100
           max-idle: 10
