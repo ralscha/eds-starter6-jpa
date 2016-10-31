@@ -41,7 +41,7 @@ public class QRCodeController {
 	@RequestMapping(value = "/qr", method = RequestMethod.GET)
 	public void qrcode(HttpServletResponse response,
 			@AuthenticationPrincipal JpaUserDetails jpaUserDetails)
-					throws WriterException, IOException {
+			throws WriterException, IOException {
 
 		User user = jpaUserDetails.getUser(this.jpaQueryFactory);
 		if (user != null && StringUtils.hasText(user.getSecret())) {

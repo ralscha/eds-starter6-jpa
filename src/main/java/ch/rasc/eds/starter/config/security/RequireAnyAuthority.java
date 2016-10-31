@@ -13,7 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+@PreAuthorize("isAuthenticated()")
 public @interface RequireAnyAuthority {
 	// nothing here
 }

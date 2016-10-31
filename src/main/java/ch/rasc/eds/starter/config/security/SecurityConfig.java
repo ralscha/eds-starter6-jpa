@@ -36,7 +36,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		if (environment.acceptsProfiles("development")) {
+		if (this.environment.acceptsProfiles("development")) {
 			web.ignoring().antMatchers("/resources/**", "/build/**", "/ext/**",
 					"/**/*.js", "/bootstrap.json", "/robots.txt");
 		}

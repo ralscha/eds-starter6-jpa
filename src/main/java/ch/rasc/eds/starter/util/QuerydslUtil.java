@@ -22,13 +22,13 @@ public abstract class QuerydslUtil {
 			ExtDirectStoreReadRequest request, Class<?> clazz,
 			EntityPathBase<?> entityPathBase) {
 		addPagingAndSorting(query, request, clazz, entityPathBase,
-				Collections.<String, String> emptyMap(), Collections.<String> emptySet());
+				Collections.<String, String>emptyMap(), Collections.<String>emptySet());
 	}
 
 	public static void addSorting(JPQLQuery<?> query, ExtDirectStoreReadRequest request,
 			Class<?> clazz, EntityPathBase<?> entityPathBase) {
 		addSorting(query, request, clazz, entityPathBase,
-				Collections.<String, String> emptyMap(), Collections.<String> emptySet());
+				Collections.<String, String>emptyMap(), Collections.<String>emptySet());
 	}
 
 	public static void addPagingAndSorting(JPQLQuery<?> query,

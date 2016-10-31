@@ -14,7 +14,7 @@ public class JsonAuthFailureHandler implements AuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException exception)
-					throws IOException, ServletException {
+			throws IOException, ServletException {
 		response.getWriter().print("{\"success\":false}");
 		response.getWriter().flush();
 	}

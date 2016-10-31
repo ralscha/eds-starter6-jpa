@@ -42,7 +42,7 @@ public class JsonAuthSuccessHandler implements AuthenticationSuccessHandler {
 	@Transactional
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
-					throws IOException, ServletException {
+			throws IOException, ServletException {
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("success", true);
