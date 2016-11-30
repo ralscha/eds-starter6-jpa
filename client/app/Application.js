@@ -31,9 +31,6 @@ Ext.define('Starter.Application', {
 	},
 
 	launch: function() {
-		Ext.getBody().removeCls('loading');
-		Ext.fly('loading_container').destroy();
-
 		var me = this;
 		var token = window.location.search.split('token=')[1];
 		if (token) {

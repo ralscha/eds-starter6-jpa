@@ -227,7 +227,7 @@
      */
     "js": [
         {
-            "path": "${framework.dir}/build/ext-all-debug.js"
+            "path": "${framework.dir}/build/ext-all-rtl-debug.js"
         },
         {
         	"path": "api.js",
@@ -308,7 +308,7 @@
     "production": {
         "output": {
             "appCache": {
-                "enable": false,
+                "enable": true,
                 "path": "cache.appcache"
             }
         },
@@ -530,5 +530,5 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "cb654b7e-2498-404f-91ee-c680fb1ad9d3"
+    "id": "dfcfeeac-4779-4480-b189-e33cb155448f"
 }
