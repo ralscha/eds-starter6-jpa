@@ -350,11 +350,13 @@
 
 								<copy todir="${basedir}/target/classes/static">
 									<fileset dir="${basedir}/client">
-										<include name="locale-*.js" />
 										<include name="i18n-*.js" />
 										<include name="robots.txt" />
 									</fileset>
 								</copy>
+
+								<copy file="${basedir}/client/ext/classic/locale/overrides/de/ext-locale-de.js"
+								      todir="${basedir}/target/classes/static" />
 
 								<copy todir="${basedir}/target/classes/static"
 									includeEmptyDirs="false">

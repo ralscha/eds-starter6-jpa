@@ -4,7 +4,8 @@ Ext.define('Starter.view.user.Controller', {
 	config: {
 		formClassName: 'Starter.view.user.Form',
 		objectName: i18n.user,
-		objectNamePlural: i18n.users
+		objectNamePlural: i18n.users,
+		reloadAfterEdit: true
 	},
 
 	erase: function() {

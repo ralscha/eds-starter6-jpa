@@ -27,6 +27,10 @@ Ext.define('Starter.view.userconfig.Panel', {
 		modelValidation: true,
 
 		items: [ {
+			bind: '{user.loginName}',
+			name: 'loginName',
+			fieldLabel: i18n.user_loginname
+		}, {
 			bind: '{user.email}',
 			name: 'email',
 			fieldLabel: i18n.user_email

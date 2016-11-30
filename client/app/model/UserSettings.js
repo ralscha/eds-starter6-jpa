@@ -3,6 +3,12 @@ Ext.define("Starter.model.UserSettings",
   extend : "Ext.data.Model",
   requires : [ "Ext.data.proxy.Direct", "Ext.data.validator.Email" ],
   fields : [ {
+    name : "loginName",
+    type : "string",
+    validators : [ {
+      type : "notBlank"
+    } ]
+  }, {
     name : "firstName",
     type : "string",
     validators : [ {

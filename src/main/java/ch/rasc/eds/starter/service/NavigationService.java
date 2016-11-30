@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,6 @@ public class NavigationService {
 
 	private final List<NavigationNode> rootNodes = new ArrayList<>();
 
-	@Autowired
 	public NavigationService(MessageSource messageSource) {
 		this.messageSource = messageSource;
 

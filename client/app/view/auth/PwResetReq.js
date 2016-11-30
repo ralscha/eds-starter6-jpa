@@ -40,8 +40,6 @@ Ext.define('Starter.view.auth.PwResetReq', {
 			name: 'email',
 			hideLabel: true,
 			allowBlank: false,
-			emptyText: 'user@example.com',
-			vtype: 'email',
 			triggers: {
 				glyphed: {
 					cls: 'trigger-glyph-noop auth-email-trigger'

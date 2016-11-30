@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -54,7 +53,6 @@ public class SecurityService {
 
 	private final ApplicationEventPublisher applicationEventPublisher;
 
-	@Autowired
 	public SecurityService(JPAQueryFactory jpaQueryFactory,
 			PasswordEncoder passwordEncoder, MailService mailService,
 			ApplicationEventPublisher applicationEventPublisher) {

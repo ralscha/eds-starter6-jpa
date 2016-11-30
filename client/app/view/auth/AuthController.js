@@ -5,7 +5,7 @@ Ext.define('Starter.view.auth.AuthController', {
 	onLoginAsAdminButtonClick: function() {
 		var form = this.getView().getForm();
 		form.setValues({
-			username: 'admin@starter.com',
+			username: 'admin',
 			password: 'admin'
 		});
 		this.onLoginButtonClick();
@@ -13,7 +13,7 @@ Ext.define('Starter.view.auth.AuthController', {
 	onLoginAsUserButtonClick: function() {
 		var form = this.getView().getForm();
 		form.setValues({
-			username: 'user@starter.com',
+			username: 'user',
 			password: 'user'
 		});
 		this.onLoginButtonClick();

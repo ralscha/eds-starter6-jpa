@@ -1,5 +1,6 @@
 Ext.define('Starter.view.base.ViewController', {
 	extend: 'Ext.app.ViewController',
+	requires: 'Starter.view.base.GridCellToolTip',
 
 	config: {
 		objectStoreName: 'objects',
@@ -19,14 +20,20 @@ Ext.define('Starter.view.base.ViewController', {
 	},
 
 	onGridRefresh: function() {
-		this.getViewModel().set(this.getSelectedObjectName(), null);
+		var store = this.getStore(this.getObjectStoreName());
+		if (store.buffered) {
+			this.getStore(this.getObjectStoreName()).load();
+		}
+		else {
 		this.getStore(this.getObjectStoreName()).reload();
+		}
 	},
 
 	newObject: function() {
 		var model = this.getStore(this.getObjectStoreName()).getModel();
-		this.getViewModel().set(this.getSelectedObjectName(), model.create());
-		this.edit();
+		var record = model.create();
+		this.getViewModel().set(this.getSelectedObjectName(), record);
+		this.edit(record);
 	},
 
 	onFilter: function(tf) {
@@ -44,29 +51,27 @@ Ext.define('Starter.view.base.ViewController', {
 
 	onItemclick: function(store, record) {
     	this.getViewModel().set(this.getSelectedObjectName(), record);
-		this.edit();
+		this.edit(record);
 	},
 
-	edit: function() {
-		this.getView().add({
+	edit: function(record) {
+		var formPanel = this.lookup('editPanel');
+		
+		if (!formPanel) {
+			formPanel = this.getView().add({
 			xclass: this.getFormClassName()
 		});
+		}
+		this.getView().getLayout().setActiveItem(formPanel);
 
-		var formPanel = this.getView().getLayout().next();
-
-		Ext.defer(function() {
-			formPanel.isValid();
-		}, 1);
+		var form = formPanel.getForm();
+        form.reset();
+        form.loadRecord(record);        
+        form.isValid();
 	},
 
 	back: function() {
-		var selectedObject = this.getSelectedObject();
-		if (selectedObject) {
-			selectedObject.reject();
-		}
-
 		this.getView().getLayout().prev();
-		this.getView().getLayout().getNext().destroy();
 	},
 
 	save: function(callback) {
@@ -74,16 +79,31 @@ Ext.define('Starter.view.base.ViewController', {
 		if (form.isValid()) {
 			this.getView().mask(i18n.saving);
 
-			var selectedObject = this.getSelectedObject();
-			this.preSave(selectedObject);
-			selectedObject.save({
+			form.updateRecord();
+			var record = form.getRecord()
+			var isPhantom = record.phantom;
+			
+			this.preSave(record);
+			record.save({
 				scope: this,
 				success: function(record, operation) {
-					this.afterSuccessfulSave();
+					
+					if (this.getReloadAfterEdit()) {
+						this.onGridRefresh();
+					}
+					else {
+						if (isPhantom) {
+							var store = this.getStore(this.getObjectStoreName());
+							store.totalCount = store.getTotalCount() + 1;
+							store.add(record); 
+						}
+					}
+					
+					this.afterSuccessfulSave(isPhantom, record);
 					Starter.Util.successToast(i18n.savesuccessful);
 					this.back();
 					if (Ext.isFunction(callback)) {
-						callback.call(this);
+						callback.call(this, record);
 					}
 				},
 				failure: function(record, operation) {
@@ -95,14 +115,10 @@ Ext.define('Starter.view.base.ViewController', {
 					this.getView().unmask();
 				}
 			});
-
 		}
 	},
 	preSave: Ext.emptyFn,
-
-	afterSuccessfulSave: function() {
-		this.getStore(this.getObjectStoreName()).reload();
-	},
+	afterSuccessfulSave: Ext.emptyFn,
 
 	eraseObject: function(errormsg, successCallback, failureCallback, scope) {
 		var selectedObject = this.getSelectedObject();
@@ -112,15 +128,32 @@ Ext.define('Starter.view.base.ViewController', {
 
 		Ext.Msg.confirm(i18n.attention, Ext.String.format(i18n.destroyConfirmMsg, errormsg), function(choice) {
 			if (choice === 'yes') {
+				var store = this.getStore(this.getObjectStoreName());
+				
+				if (!this.getReloadAfterEdit()) {
+					store.totalCount = store.getTotalCount() - 1;
+				}
+				
 				selectedObject.erase({
 					success: function(record, operation) {
+						if (this.getReloadAfterEdit()) {
 						this.onGridRefresh();
+						}
+
 						Starter.Util.successToast(i18n.destroysuccessful);
 						if (successCallback) {
 							successCallback.call(scope);
 						}
 					},
 					failure: function(record, operation) {
+						if (this.getReloadAfterEdit()) {
+							this.onGridRefresh();
+						} 
+						else {
+							store.totalCount = store.getTotalCount() + 1;
+							store.add(selectedObject);
+						}
+						
 						if (failureCallback) {
 							failureCallback.call(scope);
 						}

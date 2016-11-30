@@ -3,7 +3,6 @@ package ch.rasc.eds.starter.config.security;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.stereotype.Component;
@@ -27,7 +26,6 @@ public class UserAuthErrorHandler
 
 	private final TransactionTemplate transactionTemplate;
 
-	@Autowired
 	public UserAuthErrorHandler(JPAQueryFactory jpaQueryFactory,
 			TransactionTemplate transactionTemplate, AppProperties appProperties) {
 		this.jpaQueryFactory = jpaQueryFactory;

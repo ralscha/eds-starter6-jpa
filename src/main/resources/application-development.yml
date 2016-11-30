@@ -1,7 +1,7 @@
 spring:
   resources:
     cache-period: 0    
-    static-locations: file:./client/
+    static-locations: file:./client/,file:./client/ext/classic/locale/overrides/de/
   jpa:
     show-sql: true
 

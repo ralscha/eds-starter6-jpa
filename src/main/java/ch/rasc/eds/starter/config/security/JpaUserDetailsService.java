@@ -1,6 +1,5 @@
 package ch.rasc.eds.starter.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +15,6 @@ public class JpaUserDetailsService implements UserDetailsService {
 
 	private final JPAQueryFactory jpaQueryFactory;
 
-	@Autowired
 	public JpaUserDetailsService(JPAQueryFactory jpaQueryFactory) {
 		this.jpaQueryFactory = jpaQueryFactory;
 	}

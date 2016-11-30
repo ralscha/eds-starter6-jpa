@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import javax.validation.Validator;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,7 +42,6 @@ public class UserConfigService {
 
 	private final MessageSource messageSource;
 
-	@Autowired
 	public UserConfigService(JPAQueryFactory jpaQueryFactory, Validator validator,
 			PasswordEncoder passwordEncoder, MessageSource messageSource) {
 		this.jpaQueryFactory = jpaQueryFactory;
@@ -115,7 +113,26 @@ public class UserConfigService {
 			}
 		}
 
+		if (!UserService.isEmailUnique(this.jpaQueryFactory, user.getId(),
+				modifiedUserSettings.getEmail())) {
+			ValidationMessages validationError = new ValidationMessages();
+			validationError.setField("email");
+			validationError.setMessage(
+					this.messageSource.getMessage("user_emailtaken", null, locale));
+			validations.add(validationError);
+		}
+
+		if (!UserService.isLoginNameUnique(this.jpaQueryFactory, user.getId(),
+				modifiedUserSettings.getLoginName())) {
+			ValidationMessages validationError = new ValidationMessages();
+			validationError.setField("loginName");
+			validationError.setMessage(
+					this.messageSource.getMessage("user_loginnametaken", null, locale));
+			validations.add(validationError);
+		}
+
 		if (validations.isEmpty()) {
+			user.setLoginName(modifiedUserSettings.getLoginName());
 			user.setLastName(modifiedUserSettings.getLastName());
 			user.setFirstName(modifiedUserSettings.getFirstName());
 			user.setEmail(modifiedUserSettings.getEmail());

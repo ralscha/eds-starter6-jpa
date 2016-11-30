@@ -40,6 +40,12 @@ Ext.define('Starter.view.main.MainController', {
 		}
 	},
 
+	init: function() {
+		Ext.create('Starter.view.base.GridCellToolTip', {
+			target: this.getView().getEl()
+		});
+	},
+	
 	onSignedIn: function(event, user) {
 		var me = this;
 
@@ -56,7 +62,7 @@ Ext.define('Starter.view.main.MainController', {
 			}
 			else {
 				var script = document.createElement('script');
-				var src = 'locale-de.js';
+				var src = 'ext-locale-de.js';
 				if (Ext.manifest.loader.cache) {
 					src += '?' + Ext.manifest.loader.cacheParam + '=' + Ext.manifest.loader.cache;
 				}
@@ -330,6 +336,7 @@ Ext.define('Starter.view.main.MainController', {
 			url: serverUrl + 'logout',
 			method: 'POST'
 		}).then(function(r) {
+			sessionStorage.clear();
 			var currentLocation = window.location.toString();
 			var hashPos = currentLocation.indexOf("#");
 			if (hashPos > 0) {
@@ -354,67 +361,23 @@ Ext.define('Starter.view.main.MainController', {
 	},
 
 	onToggleNavigationSize: function() {
-		var me = this, 
-		    refs = me.getReferences(), 
-		    navigationList = refs.navigationTreeList, 
-		    wrapContainer = refs.mainContainer, 
-		    collapsing = !navigationList.getMicro(), 
-		    new_width = collapsing ? 64 : 250;
+		var refs = this.getReferences();
+		var navigationList = refs.navigationTreeList;
+		var wrapContainer = refs.mainContainer;
+		var collapsing = !navigationList.getMicro();
+		var newWidth = collapsing ? 64 : 250;
 
 		localStorage.starter_navigation_micro = collapsing;
 		
-		if (Ext.isIE9m || !Ext.os.is.Desktop) {
 			Ext.suspendLayouts();
 
-			refs.appLogo.setWidth(new_width);
+		refs.appLogo.setWidth(newWidth);
 
-			navigationList.setWidth(new_width);
+		navigationList.setWidth(newWidth);
 			navigationList.setMicro(collapsing);
 
-			Ext.resumeLayouts(); // do not flush the layout here...
-
-			// No animation for IE9 or lower...
-			wrapContainer.layout.animatePolicy = wrapContainer.layout.animate = null;
-			wrapContainer.updateLayout(); // ... since this will flush them
-		}
-		else {
-			if (!collapsing) {
-				// If we are leaving micro mode (expanding), we do that first so that the
-				// text of the items in the navlist will be revealed by the animation.
-				navigationList.setMicro(false);
-			}
-
-			// Start this layout first since it does not require a layout
-			refs.appLogo.animate({
-				dynamic: true,
-				to: {
-					width: new_width
-				}
-			});
-
-			// Directly adjust the width config and then run the main wrap container
-			// layout
-			// as the root layout (it and its chidren). This will cause the adjusted size
-			// to
-			// be flushed to the element and animate to that new size.
-			navigationList.width = new_width;
-			wrapContainer.updateLayout({
-				isRoot: true
-			});
-
-			// We need to switch to micro mode on the navlist *after* the animation (this
-			// allows the "sweep" to leave the item text in place until it is no longer
-			// visible.
-			if (collapsing) {
-				navigationList.on({
-					afterlayoutanimation: function() {
-						navigationList.setMicro(true);
-					},
-					single: true
-				});
-			}
-		}
-
+		Ext.resumeLayouts();
+		wrapContainer.updateLayout();
 	}
 
 });

@@ -1,6 +1,5 @@
 package ch.rasc.eds.starter.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -19,7 +18,6 @@ class Startup {
 
 	private final PasswordEncoder passwordEncoder;
 
-	@Autowired
 	public Startup(JPAQueryFactory jpaQueryFactory, PasswordEncoder passwordEncoder,
 			TransactionTemplate transactionTemplate) {
 		this.jpaQueryFactory = jpaQueryFactory;
@@ -37,7 +35,7 @@ class Startup {
 				.fetchFirst() == null) {
 			// admin user
 			User adminUser = new User();
-			adminUser.setLoginName("admin@starter.com");
+			adminUser.setLoginName("admin");
 			adminUser.setEmail("admin@starter.com");
 			adminUser.setFirstName("admin");
 			adminUser.setLastName("admin");
@@ -50,7 +48,7 @@ class Startup {
 
 			// normal user
 			User normalUser = new User();
-			normalUser.setLoginName("user@starter.com");
+			normalUser.setLoginName("user");
 			normalUser.setEmail("user@starter.com");
 			normalUser.setFirstName("user");
 			normalUser.setLastName("user");

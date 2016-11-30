@@ -1,6 +1,5 @@
 package ch.rasc.eds.starter.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ public class UserAuthSuccessfulHandler
 
 	private final JPAQueryFactory jpaQueryFactory;
 
-	@Autowired
 	public UserAuthSuccessfulHandler(JPAQueryFactory jpaQueryFactory) {
 		this.jpaQueryFactory = jpaQueryFactory;
 	}

@@ -9,7 +9,6 @@ import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -80,7 +79,6 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
 
 	private final TransactionTemplate transactionTemplate;
 
-	@Autowired
 	public CustomPersistentRememberMeServices(JPAQueryFactory jpaQueryFactory,
 			TransactionTemplate transactionTemplate,
 			UserDetailsService userDetailsService, AppProperties appProperties) {

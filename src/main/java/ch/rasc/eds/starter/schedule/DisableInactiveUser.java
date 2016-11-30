@@ -3,7 +3,6 @@ package ch.rasc.eds.starter.schedule;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,6 @@ public class DisableInactiveUser {
 
 	private final JPAQueryFactory jpaQueryFactory;
 
-	@Autowired
 	public DisableInactiveUser(JPAQueryFactory jpaQueryFactory) {
 		this.jpaQueryFactory = jpaQueryFactory;
 	}

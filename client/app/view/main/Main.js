@@ -11,12 +11,12 @@ Ext.define('Starter.view.main.Main', {
 	},
 
 	layout: {
-		type: 'vbox',
-		align: 'stretch'
+		type: 'border'
 	},
 
 	items: [ {
 		xtype: 'toolbar',
+		region: 'north',
 		cls: 'app-dash-dash-headerbar shadow',
 		height: 44,
 		items: [ {
@@ -56,28 +56,25 @@ Ext.define('Starter.view.main.Main', {
 			tooltip: i18n.auth_signout
 		} ]
 	}, {
-		xclass: 'Starter.view.main.MainContainer',
+		xtype: 'container',
 		reference: 'mainContainer',
-		flex: 1,
+		region: 'center',
+		layout: 'border',
 		items: [ {
+			region: 'west',
+			width: 250,
 			xtype: 'treelist',
 			reference: 'navigationTreeList',
-			itemId: 'navigationTreeList',
 			ui: 'navigation',
 			store: 'navigation',
-			width: 250,
 			expanderFirst: false,
 			expanderOnly: false,
-			animation: {
-				duration: 100,
-				easing: 'ease'
-			},
 			listeners: {
 				selectionchange: 'onNavigationTreeSelectionChange'
 			}
 		}, {
+			region: 'center',
 			xtype: 'container',
-			flex: 1,
 			reference: 'mainCardPanel',
 			padding: 8,
 			layout: {

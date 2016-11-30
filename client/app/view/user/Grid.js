@@ -1,14 +1,7 @@
 Ext.define('Starter.view.user.Grid', {
 	extend: 'Ext.grid.Panel',
-	requires: [ 'Starter.plugin.Clearable' ],
 	stateful: true,
 	stateId: 'view.user.Grid',
-
-	height: 100,
-	beforeLayout: function() {
-		this.height = Ext.Element.getViewportHeight() - 60;
-		this.callParent(arguments);
-	},
 
 	autoLoad: true,
 
@@ -27,6 +20,11 @@ Ext.define('Starter.view.user.Grid', {
 	},
 
 	columns: [ {
+		text: i18n.user_loginname,
+		dataIndex: 'loginName',
+		flex: 1,
+		stateId: 'view.user.Grid.loginName'
+	}, {
 		text: i18n.user_email,
 		dataIndex: 'email',
 		flex: 1,
@@ -84,10 +82,6 @@ Ext.define('Starter.view.user.Grid', {
 		xtype: 'toolbar',
 		dock: 'top',
 		items: [ {
-			text: i18n.create,
-			iconCls: 'x-fa fa-plus',
-			handler: 'newObject'
-		}, {
 			emptyText: i18n.filter,
 			xtype: 'textfield',
 			width: 250,
@@ -100,6 +94,10 @@ Ext.define('Starter.view.user.Grid', {
 					buffer: 500
 				}
 			}
+		}, '->', {
+			text: i18n.create,
+			iconCls: 'x-fa fa-plus',
+			handler: 'newObject'
 		} ]
 	}, {
 		xtype: 'toolbar',

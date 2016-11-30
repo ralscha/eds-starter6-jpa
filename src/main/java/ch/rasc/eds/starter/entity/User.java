@@ -48,6 +48,7 @@ public class User extends AbstractPersistable {
 	@Email(message = "{invalidemail}")
 	@Size(max = 255)
 	@NotBlank(message = "{fieldrequired}")
+	@Column(unique = true)
 	private String email;
 
 	private String authorities;

@@ -15,6 +15,9 @@ import ch.rasc.extclassgenerator.Model;
 @JsonInclude(Include.NON_NULL)
 public class UserSettings {
 	@NotBlank(message = "{fieldrequired}")
+	private String loginName;
+
+	@NotBlank(message = "{fieldrequired}")
 	private String firstName;
 
 	@NotBlank(message = "{fieldrequired}")
@@ -37,11 +40,20 @@ public class UserSettings {
 	}
 
 	public UserSettings(User user) {
+		this.loginName = user.getLoginName();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.locale = user.getLocale();
 		this.email = user.getEmail();
 		this.twoFactorAuth = user.isTwoFactorAuth();
+	}
+
+	public String getLoginName() {
+		return this.loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public String getFirstName() {

@@ -33,8 +33,7 @@ Ext.define('Starter.view.auth.Signin', {
 			height: 55,
 			hideLabel: true,
 			allowBlank: false,
-			emptyText: i18n.auth_signin_email,
-			vtype: 'email',
+			emptyText: i18n.auth_signin_loginname,
 			triggers: {
 				glyphed: {
 					cls: 'trigger-glyph-noop auth-email-trigger'

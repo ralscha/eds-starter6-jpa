@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Validator;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +57,6 @@ public class UserService {
 
 	private final MailService mailService;
 
-	@Autowired
 	public UserService(JPAQueryFactory jpaQueryFactory, Validator validator,
 			MessageSource messageSource, MailService mailService) {
 		this.jpaQueryFactory = jpaQueryFactory;
@@ -99,6 +97,10 @@ public class UserService {
 		if (!isLastAdmin(destroyUser.getId())) {
 			User user = this.jpaQueryFactory.getEntityManager().find(User.class,
 					destroyUser.getId());
+			user.setEnabled(false);
+			user.setLoginName(null);
+			user.setEmail(null);
+			user.setPasswordHash(null);
 			user.getPersistentLogins().clear();
 			user.setDeleted(true);
 			result.setSuccess(Boolean.TRUE);
@@ -128,7 +130,6 @@ public class UserService {
 
 			violations.addAll(checkIfLastAdmin(updatedEntity, locale, dbUser));
 		}
-		updatedEntity.setLoginName(updatedEntity.getEmail());
 
 		violations.addAll(validateEntity(updatedEntity, locale));
 		if (violations.isEmpty()) {
@@ -192,11 +193,19 @@ public class UserService {
 		List<ValidationMessages> validations = ValidationUtil
 				.validateEntity(this.validator, user);
 
-		if (!isEmailUnique(user.getId(), user.getEmail())) {
+		if (!isEmailUnique(this.jpaQueryFactory, user.getId(), user.getEmail())) {
 			ValidationMessages validationError = new ValidationMessages();
 			validationError.setField("email");
 			validationError.setMessage(
 					this.messageSource.getMessage("user_emailtaken", null, locale));
+			validations.add(validationError);
+		}
+
+		if (!isLoginNameUnique(this.jpaQueryFactory, user.getId(), user.getLoginName())) {
+			ValidationMessages validationError = new ValidationMessages();
+			validationError.setField("loginName");
+			validationError.setMessage(
+					this.messageSource.getMessage("user_loginnametaken", null, locale));
 			validations.add(validationError);
 		}
 
@@ -217,14 +226,30 @@ public class UserService {
 		return query.fetchFirst() == null;
 	}
 
-	private boolean isEmailUnique(Long userId, String email) {
+	public static boolean isEmailUnique(JPAQueryFactory jpaQueryFactory, Long userId,
+			String email) {
 		if (StringUtils.hasText(email)) {
 			BooleanBuilder bb = new BooleanBuilder(
 					QUser.user.email.equalsIgnoreCase(email));
 			if (userId != null) {
 				bb.and(QUser.user.id.ne(userId));
 			}
-			return this.jpaQueryFactory.select(Expressions.ONE).from(QUser.user).where(bb)
+			return jpaQueryFactory.select(Expressions.ONE).from(QUser.user).where(bb)
+					.fetchFirst() == null;
+		}
+
+		return true;
+	}
+
+	public static boolean isLoginNameUnique(JPAQueryFactory jpaQueryFactory, Long userId,
+			String loginName) {
+		if (StringUtils.hasText(loginName)) {
+			BooleanBuilder bb = new BooleanBuilder(
+					QUser.user.loginName.equalsIgnoreCase(loginName));
+			if (userId != null) {
+				bb.and(QUser.user.id.ne(userId));
+			}
+			return jpaQueryFactory.select(Expressions.ONE).from(QUser.user).where(bb)
 					.fetchFirst() == null;
 		}
 

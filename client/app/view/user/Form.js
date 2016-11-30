@@ -1,7 +1,7 @@
 Ext.define('Starter.view.user.Form', {
 	extend: 'Ext.form.Panel',
 	requires: [ 'Ext.form.field.ComboBox', 'Ext.form.field.Tag' ],
-	defaultFocus: 'textfield[name=email]',
+	defaultFocus: 'textfield[name=loginName]',
 
 	reference: 'editPanel',
 
@@ -15,23 +15,25 @@ Ext.define('Starter.view.user.Form', {
 	modelValidation: true,
 
 	items: [ {
-		bind: '{selectedObject.email}',
+		name: 'loginName',
+		allowBlank: false,
+		fieldLabel: i18n.user_loginname
+	}, {
 		name: 'email',
+		vtype: 'email',
+		allowBlank: false,
 		fieldLabel: i18n.user_email
 	}, {
-		bind: '{selectedObject.firstName}',
 		name: 'firstName',
+		allowBlank: false,
 		fieldLabel: i18n.user_firstname
 	}, {
-		bind: '{selectedObject.lastName}',
 		name: 'lastName',
+		allowBlank: false,
 		fieldLabel: i18n.user_lastname
 	}, {
 		xtype: 'combobox',
 		fieldLabel: i18n.language,
-		bind: {
-			value: '{selectedObject.locale}'
-		},
 		name: 'locale',
 		store: 'languages',
 		valueField: 'value',
@@ -40,7 +42,6 @@ Ext.define('Starter.view.user.Form', {
 		forceSelection: true,
 		editable: false
 	}, {
-		bind: '{selectedObject.enabled}',
 		fieldLabel: i18n.user_enabled,
 		name: 'enabled',
 		xtype: 'checkboxfield',
@@ -51,9 +52,6 @@ Ext.define('Starter.view.user.Form', {
 		xtype: 'tagfield',
 		fieldLabel: i18n.user_authorities,
 		store: 'authority',
-		bind: {
-			value: '{selectedObject.authorities}'
-		},
 		name: 'authorities',
 		displayField: 'value',
 		valueField: 'value',

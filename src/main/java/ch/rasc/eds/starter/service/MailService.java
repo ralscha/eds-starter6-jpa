@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
@@ -43,7 +42,6 @@ public class MailService {
 
 	private final Mustache.Compiler mustacheCompiler;
 
-	@Autowired
 	public MailService(JavaMailSender mailSender, MessageSource messageSource,
 			AppProperties appProperties, Mustache.Compiler mustacheCompiler,
 			@Value("${info.app.name}") String appName) {
