@@ -12,8 +12,6 @@ Ext.define('Starter.view.user.Form', {
 	},
 	bodyPadding: 20,
 
-	modelValidation: true,
-
 	items: [ {
 		name: 'loginName',
 		allowBlank: false,
