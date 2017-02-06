@@ -13,10 +13,6 @@ app:
   login-lock-attempts: 10
   login-lock-minutes: 30
 
-security:
-  ignored:
-    - none
-  
 spring:
   jackson:
     serialization:
