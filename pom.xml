@@ -27,7 +27,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<querydsl.version>4.1.4</querydsl.version>
-		<hibernate.version>5.2.8.Final</hibernate.version>
+		<hibernate.version>5.2.9.Final</hibernate.version>
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH-mm-ssZ</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 	</properties>
@@ -212,7 +212,7 @@
 					<dependency>
 						<artifactId>hibernate-validator</artifactId>
 						<groupId>org.hibernate</groupId>
-						<version>5.4.0.Final</version>
+						<version>5.4.1.Final</version>
 					</dependency>
 					<dependency>
 						<groupId>javax.el</groupId>
