@@ -260,7 +260,7 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
 		}
 		ZonedDateTime lastUsed = persistentLogin
 				.get(QPersistentLogin.persistentLogin.lastUsed);
-		if (lastUsed.plusSeconds(this.tokenValidInSeconds)
+		if (lastUsed != null && lastUsed.plusSeconds(this.tokenValidInSeconds)
 				.isBefore(ZonedDateTime.now(ZoneOffset.UTC))) {
 			removePersistentLogin(series);
 			throw new RememberMeAuthenticationException("Remember-me login has expired");
