@@ -44,6 +44,7 @@ Ext.define('Starter.view.userconfig.Controller', {
 		
 		var store = Ext.state.Manager.getProvider().store;
 		store.clear();
+		location.reload();
 	},
 
 	destroyPersistentLogin: function(view, rowIndex, colIndex, item, e, record, row) {
