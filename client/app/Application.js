@@ -1,17 +1,18 @@
 Ext.define('Starter.Application', {
 	extend: 'Ext.app.Application',
-	requires: [ 'Ext.direct.*', 'Ext.form.action.DirectSubmit', 'Starter.*', 'Ext.state.Manager', 'Ext.state.LocalStorageProvider', 'Ext.container.Container' ],
+	requires: [ 'Ext.direct.*', 'Ext.form.action.DirectSubmit', 'Ext.state.Manager', 'Ext.state.LocalStorageProvider' ],
 	name: 'Starter',
 
 	stores: [ 'Navigation', 'Languages', 'Authority' ],
 
-	constructor: function() {
-		// <debug>
-		Ext.Ajax.on('beforerequest', function(conn, options, eOpts) {
-			options.withCredentials = true;
-		}, this);
-		// </debug>
+    quickTips: false,
+    platformConfig: {
+        desktop: {
+            quickTips: true
+        }
+    },
 
+	constructor: function() {
 		var heartbeat = new Ext.direct.PollingProvider({
 			id: 'heartbeat',
 			type: 'polling',

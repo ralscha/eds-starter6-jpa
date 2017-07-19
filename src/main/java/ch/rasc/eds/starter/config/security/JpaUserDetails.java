@@ -34,8 +34,6 @@ public class JpaUserDetails implements UserDetails {
 
 	private final Locale locale;
 
-	private boolean screenLocked;
-
 	public JpaUserDetails(User user) {
 		this.userDbId = user.getId();
 
@@ -130,14 +128,6 @@ public class JpaUserDetails implements UserDetails {
 	public boolean hasAuthority(String authority) {
 		return getAuthorities().stream()
 				.anyMatch(a -> authority.equals(a.getAuthority()));
-	}
-
-	public boolean isScreenLocked() {
-		return this.screenLocked;
-	}
-
-	public void setScreenLocked(boolean screenLocked) {
-		this.screenLocked = screenLocked;
 	}
 
 }

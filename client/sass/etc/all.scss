@@ -56,14 +56,6 @@
   border-radius: $radius;
 }
 
-@mixin box-shadow($h-shadow,$v-shadow,$blur,$spread,$shadow-color) {
-  $value: $h-shadow, $v-shadow, $blur, $spread, $shadow-color;
-  -webkit-box-shadow: $value;
-  -moz-box-shadow: $value;
-  -ms-box-shadow: $value;
-  box-shadow: $value;
-}
-
 *:focus {
   outline:0 !important;
 }

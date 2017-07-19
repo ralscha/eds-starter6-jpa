@@ -18,8 +18,6 @@ public class UserDetailDto {
 
 	private final String autoOpenView;
 
-	private final boolean screenLocked;
-
 	private final boolean preAuth;
 
 	private final String csrf;
@@ -28,7 +26,6 @@ public class UserDetailDto {
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.locale = user.getLocale();
-		this.screenLocked = userDetails.isScreenLocked();
 		this.preAuth = userDetails.isPreAuth();
 
 		if (userDetails.hasAuthority(Authority.ADMIN.name())) {
@@ -58,10 +55,6 @@ public class UserDetailDto {
 
 	public String getAutoOpenView() {
 		return this.autoOpenView;
-	}
-
-	public boolean isScreenLocked() {
-		return this.screenLocked;
 	}
 
 	public boolean isPreAuth() {

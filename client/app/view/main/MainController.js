@@ -89,11 +89,7 @@ Ext.define('Starter.view.main.MainController', {
 				me.appready = true;
 				me.fireEvent('appready', this);
 				if (Starter.app.authUser) {
-					if (Starter.app.authUser.screenLocked) {
-						me.setCurrentView('auth.LockScreen', true);
-						delete me.savedHash;
-					}
-					else if (me.savedHash) {
+					if (me.savedHash) {
 						me.redirectTo(me.savedHash);
 						delete me.savedHash;
 					}
@@ -103,7 +99,7 @@ Ext.define('Starter.view.main.MainController', {
 						}
 					}
 
-					me.enableLockscreen();
+					Ext.direct.Manager.getProvider('heartbeat').connect()
 				}
 			}
 		});
@@ -117,25 +113,6 @@ Ext.define('Starter.view.main.MainController', {
 			}
 		});
 
-	},
-
-	enableLockscreen: function() {
-		var me = this;
-		// Page will become idle after 1 hour
-		ifvisible.setIdleDuration(3600);
-		ifvisible.on("idle", function() {
-			if (ifvisible.getIdleInfo().timeLeft === 0) {
-				securityService.enableScreenLock(function() {
-					me.setCurrentView('auth.LockScreen', true);
-				});
-			}
-		});
-		Ext.direct.Manager.getProvider('heartbeat').connect()
-	},
-
-	disableLockscreen: function() {
-		ifvisible.off("idle");
-		Ext.direct.Manager.getProvider('heartbeat').disconnect()
 	},
 
 	onNotSignedIn: function() {

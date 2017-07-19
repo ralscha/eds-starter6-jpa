@@ -97,12 +97,7 @@ public class UserService {
 		if (!isLastAdmin(destroyUser.getId())) {
 			User user = this.jpaQueryFactory.getEntityManager().find(User.class,
 					destroyUser.getId());
-			user.setEnabled(false);
-			user.setLoginName(null);
-			user.setEmail(null);
-			user.setPasswordHash(null);
-			user.getPersistentLogins().clear();
-			user.setDeleted(true);
+			this.jpaQueryFactory.getEntityManager().remove(user);
 			result.setSuccess(Boolean.TRUE);
 		}
 		else {

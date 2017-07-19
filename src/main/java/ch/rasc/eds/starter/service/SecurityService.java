@@ -126,30 +126,6 @@ public class SecurityService {
 		return new ExtDirectFormPostResult(false);
 	}
 
-	@ExtDirectMethod
-	@RequireAnyAuthority
-	public void enableScreenLock(@AuthenticationPrincipal JpaUserDetails jpaUserDetails) {
-		jpaUserDetails.setScreenLocked(true);
-	}
-
-	@ExtDirectMethod(ExtDirectMethodType.FORM_POST)
-	@RequireAnyAuthority
-	@Transactional(readOnly = true)
-	public ExtDirectFormPostResult disableScreenLock(
-			@AuthenticationPrincipal JpaUserDetails jpaUserDetails,
-			@RequestParam("password") String password) {
-
-		String passwordHash = this.jpaQueryFactory.select(QUser.user.passwordHash)
-				.from(QUser.user).where(QUser.user.id.eq(jpaUserDetails.getUserDbId()))
-				.fetchFirst();
-
-		boolean matches = this.passwordEncoder.matches(password, passwordHash);
-		jpaUserDetails.setScreenLocked(!matches);
-		ExtDirectFormPostResult result = new ExtDirectFormPostResult(matches);
-
-		return result;
-	}
-
 	@ExtDirectMethod(ExtDirectMethodType.FORM_POST)
 	@Transactional
 	public ExtDirectFormPostResult resetRequest(@RequestParam("email") String email) {

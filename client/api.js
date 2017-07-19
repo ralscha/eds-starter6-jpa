@@ -11,13 +11,6 @@ var REMOTING_API = {
       "len" : 1
     } ],
     "securityService" : [ {
-      "name" : "disableScreenLock",
-      "len" : 0,
-      "formHandler" : true
-    }, {
-      "name" : "enableScreenLock",
-      "len" : 0
-    }, {
       "name" : "getAuthUser",
       "len" : 0
     }, {
