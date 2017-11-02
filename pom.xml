@@ -137,7 +137,7 @@
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
-			<version>3.3.0</version>
+			<version>3.3.1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>jcommander</artifactId>
@@ -208,7 +208,7 @@
 					<dependency>
 						<artifactId>hibernate-validator</artifactId>
 						<groupId>org.hibernate</groupId>
-						<version>6.0.3.Final</version>
+						<version>6.0.4.Final</version>
 					</dependency>
 					<dependency>
 						<groupId>javax.el</groupId>
