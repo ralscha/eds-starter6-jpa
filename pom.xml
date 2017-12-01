@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.8.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>ch.ralscha</groupId>
 			<artifactId>extdirectspring</artifactId>
-			<version>1.7.2</version>
+			<version>1.7.3</version>
 		</dependency>
 
 		<dependency>
@@ -160,7 +160,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.2</version>
+				<version>3.7.0</version>
 				<configuration>
 					<debug>true</debug>
 					<source>${java.version}</source>
@@ -208,7 +208,7 @@
 					<dependency>
 						<artifactId>hibernate-validator</artifactId>
 						<groupId>org.hibernate</groupId>
-						<version>6.0.4.Final</version>
+						<version>6.0.5.Final</version>
 					</dependency>
 					<dependency>
 						<groupId>javax.el</groupId>
