@@ -129,12 +129,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
 			<version>3.3.1</version>
@@ -166,6 +160,13 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<parameters>true</parameters>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-configuration-processor</artifactId>
+							<version>1.5.9.RELEASE</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 
