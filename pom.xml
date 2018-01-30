@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>ch.ralscha</groupId>
 			<artifactId>extdirectspring</artifactId>
-			<version>1.7.3</version>
+			<version>1.7.4</version>
 		</dependency>
 
 		<dependency>
@@ -102,7 +102,7 @@
 		<dependency>
 			<groupId>eu.bitwalker</groupId>
 			<artifactId>UserAgentUtils</artifactId>
-			<version>1.20</version>
+			<version>1.21</version>
 		</dependency>
 
 		<dependency>
@@ -125,7 +125,7 @@
 		<dependency>
 			<groupId>de.danielbechler</groupId>
 			<artifactId>java-object-diff</artifactId>
-			<version>0.94</version>
+			<version>0.95</version>
 		</dependency>
 
 		<dependency>
@@ -149,6 +149,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>				
 			</plugin>
 
 			<plugin>
@@ -209,7 +212,7 @@
 					<dependency>
 						<artifactId>hibernate-validator</artifactId>
 						<groupId>org.hibernate</groupId>
-						<version>6.0.5.Final</version>
+						<version>6.0.7.Final</version>
 					</dependency>
 					<dependency>
 						<groupId>javax.el</groupId>
