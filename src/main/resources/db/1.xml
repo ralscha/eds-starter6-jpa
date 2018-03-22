@@ -1,7 +1,11 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
  
-    <changeSet author="dev (generated)" id="1477929362150-1">
+	<changeSet id="0" author="dev">
+	    <createSequence sequenceName="hibernate_sequence" startValue="1" incrementBy="1"/>
+	</changeSet>
+ 
+    <changeSet author="dev" id="1477929362150-1">
         <createTable tableName="app_user">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="app_userPK"/>
@@ -26,7 +30,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="dev (generated)" id="1477929362150-2">
+    <changeSet author="dev" id="1477929362150-2">
         <createTable tableName="persistent_login">
             <column name="series" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -39,15 +43,15 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="dev (generated)" id="1477929362150-3">
+    <changeSet author="dev" id="1477929362150-3">
         <addPrimaryKey columnNames="series" constraintName="persistent_loginPK" tableName="persistent_login"/>
     </changeSet>
 
-    <changeSet author="dev (generated)" id="1477929362150-4">
+    <changeSet author="dev" id="1477929362150-4">
         <addUniqueConstraint columnNames="login_name" constraintName="UC_APP_USERLOGIN_NAME_COL" tableName="app_user"/>
     </changeSet>
 
-    <changeSet author="dev (generated)" id="1477929362150-5">
+    <changeSet author="dev" id="1477929362150-5">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="persistent_login" constraintName="FKbc4f872elwbbl84cewegx2tt3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="app_user"/>
     </changeSet>
 </databaseChangeLog>

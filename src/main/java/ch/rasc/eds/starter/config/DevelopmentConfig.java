@@ -40,8 +40,8 @@ class DevelopmentConfig {
 	private String appName;
 
 	@Bean
-	public FilterRegistrationBean corsFilterRegistration() {
-		FilterRegistrationBean filter = new FilterRegistrationBean();
+	public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
+		FilterRegistrationBean<CorsFilter> filter = new FilterRegistrationBean<>();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedOrigins(Collections.singletonList(CorsConfiguration.ALL));
 		config.setAllowedMethods(Collections.singletonList(CorsConfiguration.ALL));
