@@ -67,9 +67,9 @@ spring:
   main:
     banner-mode: log       
       
+
   liquibase:
-    change-log:
-      classpath:/db/changelog.xml
+    change-log: classpath:/db/changelog.xml
 
 server:
   port: 80
