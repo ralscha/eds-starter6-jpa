@@ -21,7 +21,7 @@
 	<properties>
 		<start-class>ch.rasc.eds.starter.Application</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<querydsl.version>4.2.1</querydsl.version>
 		<hibernate.version>5.2.12.Final</hibernate.version>
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH-mm-ssZ</maven.build.timestamp.format>
@@ -62,7 +62,6 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-			<version>${querydsl.version}</version>
 		</dependency>
 
  		<dependency>
@@ -134,6 +133,11 @@
 			</exclusions>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -146,24 +150,6 @@
 				<configuration>
 					<executable>true</executable>
 				</configuration>				
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<debug>true</debug>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<parameters>true</parameters>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.springframework.boot</groupId>
-							<artifactId>spring-boot-configuration-processor</artifactId>
-							<version>2.1.7.RELEASE</version>
-						</path>
-					</annotationProcessorPaths>
-				</configuration>
 			</plugin>
 
 			<plugin>
@@ -282,7 +268,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
 				<executions>
 					<execution>
 						<id>sencha-app-clean-development</id>

@@ -3,6 +3,7 @@ package ch.rasc.eds.starter.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -38,7 +39,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		if (this.environment.acceptsProfiles("development")) {
+		if (this.environment.acceptsProfiles(Profiles.of("development"))) {
 			web.ignoring().antMatchers("/resources/**", "/build/**", "/ext/**",
 					"/**/*.js", "/bootstrap.json", "/robots.txt");
 		}
