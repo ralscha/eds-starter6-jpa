@@ -22,7 +22,6 @@
 		<start-class>ch.rasc.eds.starter.Application</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
-		<querydsl.version>4.3.1</querydsl.version>
 		<hibernate.version>5.2.12.Final</hibernate.version>
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH-mm-ssZ</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
@@ -67,7 +66,6 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-			<version>${querydsl.version}</version>
 		</dependency>
 
  		<dependency>
@@ -125,6 +123,12 @@
 			<groupId>de.danielbechler</groupId>
 			<artifactId>java-object-diff</artifactId>
 			<version>0.95</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>com.google.guava</groupId>
+		  <artifactId>guava</artifactId>
+		  <version>31.0.1-jre</version>
 		</dependency>
 
 		<dependency>
