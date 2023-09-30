@@ -14,14 +14,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.12</version>
+		<version>2.7.15</version>
 		<relativePath />
 	</parent>
 
 	<properties>
 		<start-class>ch.rasc.eds.starter.Application</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<hibernate.version>5.2.12.Final</hibernate.version>
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH-mm-ssZ</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
