@@ -201,7 +201,7 @@
 					<dependency>
 						<artifactId>hibernate-validator</artifactId>
 						<groupId>org.hibernate</groupId>
-						<version>7.0.1.Final</version>
+						<version>7.0.5.Final</version>
 					</dependency>
 					<dependency>
 						<groupId>javax.el</groupId>
