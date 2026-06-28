@@ -421,4 +421,19 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>skip-sencha-client-build</id>
+      <activation>
+        <file>
+          <missing>client/ext/classic/locale/overrides/de/ext-locale-de.js</missing>
+        </file>
+      </activation>
+      <properties>
+        <exec.skip>true</exec.skip>
+        <maven.antrun.skip>true</maven.antrun.skip>
+      </properties>
+    </profile>
+  </profiles>
+
 </project>
