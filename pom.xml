@@ -6,7 +6,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.15</version>
-    <relativePath></relativePath>
+    <relativePath/>
   </parent>
 
   <groupId>ch.rasc</groupId>
@@ -22,7 +22,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>25</java.version>
     <hibernate.version>5.3.2.Final</hibernate.version>
-    <maven.build.timestamp.format>yyyy-MM-dd'T'HH-mm-ssZ</maven.build.timestamp.format>
+    <maven.build.timestamp.format>yyyy-MM-dd&apos;T&apos;HH-mm-ssZ</maven.build.timestamp.format>
     <build.timestamp>${maven.build.timestamp}</build.timestamp>
   </properties>
 
@@ -127,7 +127,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.6.0-jre</version>
+      <version>33.7.1-jre</version>
     </dependency>
 
     <dependency>
@@ -170,7 +170,7 @@
           <diffChangeLogFile>src/main/resources/db/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
           <url>jdbc:mysql://localhost/starter6?nullNamePatternMatchesAll=true&amp;useSSL=false</url>
           <driver>com.mysql.cj.jdbc.Driver</driver>
-          <defaultSchemaName></defaultSchemaName>
+          <defaultSchemaName/>
           <username>root</username>
           <password>root</password>
           <systemProperties>
@@ -340,34 +340,34 @@
 
                 <copy todir="${basedir}/target/classes/static">
                   <fileset dir="${basedir}/client">
-                    <include name="i18n-*.js"></include>
-                    <include name="robots.txt"></include>
+                    <include name="i18n-*.js"/>
+                    <include name="robots.txt"/>
                   </fileset>
                 </copy>
 
-                <copy file="${basedir}/client/ext/classic/locale/overrides/de/ext-locale-de.js" todir="${basedir}/target/classes/static"></copy>
+                <copy file="${basedir}/client/ext/classic/locale/overrides/de/ext-locale-de.js" todir="${basedir}/target/classes/static"/>
 
                 <copy includeEmptyDirs="false" todir="${basedir}/target/classes/static">
                   <fileset dir="${basedir}/client/build/production/Starter">
-                    <exclude name="**/Readme.md"></exclude>
-                    <exclude name="resources/ext/"></exclude>
-                    <exclude name="resources/fonts/OpenSans*"></exclude>
+                    <exclude name="**/Readme.md"/>
+                    <exclude name="resources/ext/"/>
+                    <exclude name="resources/fonts/OpenSans*"/>
                   </fileset>
                 </copy>
 
-                <checksum algorithm="SHA-1" file="${basedir}/target/classes/static/i18n-de.js" property="i18n_de_sha1"></checksum>
-                <checksum algorithm="SHA-1" file="${basedir}/target/classes/static/i18n-en.js" property="i18n_en_sha1"></checksum>
+                <checksum algorithm="SHA-1" file="${basedir}/target/classes/static/i18n-de.js" property="i18n_de_sha1"/>
+                <checksum algorithm="SHA-1" file="${basedir}/target/classes/static/i18n-en.js" property="i18n_en_sha1"/>
 
                 <replace file="${basedir}/target/classes/static/index.html">
-                  <replacefilter token="var serverUrl = 'http://localhost:8080/';" value="var serverUrl = '';"></replacefilter>
+                  <replacefilter token="var serverUrl = &apos;http://localhost:8080/&apos;;" value="var serverUrl = &apos;&apos;;"/>
 
-                  <replacefilter token="var i18nEnUrl = 'i18n-en.js';" value="var i18nEnUrl = 'i18n-en.js?_dc=${i18n_en_sha1}';"></replacefilter>
+                  <replacefilter token="var i18nEnUrl = &apos;i18n-en.js&apos;;" value="var i18nEnUrl = &apos;i18n-en.js?_dc=${i18n_en_sha1}&apos;;"/>
 
-                  <replacefilter token="var i18nDeUrl = 'i18n-de.js';" value="var i18nDeUrl = 'i18n-de.js?_dc=${i18n_de_sha1}';"></replacefilter>
+                  <replacefilter token="var i18nDeUrl = &apos;i18n-de.js&apos;;" value="var i18nDeUrl = &apos;i18n-de.js?_dc=${i18n_de_sha1}&apos;;"/>
 
                 </replace>
 
-                <replaceregexp file="${basedir}/target/classes/static/index.html" match="&lt;!--.*--&gt;" replace=""></replaceregexp>
+                <replaceregexp file="${basedir}/target/classes/static/index.html" match="&lt;!--.*--&gt;" replace=""/>
 
               </target>
             </configuration>
