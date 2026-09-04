@@ -3,8 +3,8 @@ package ch.rasc.eds.starter.entity;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public class LocalDateTimeConverter

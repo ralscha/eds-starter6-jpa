@@ -6,22 +6,21 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import ch.rasc.eds.starter.dto.UserDetailDto;
 import ch.rasc.eds.starter.entity.User;
 import ch.rasc.eds.starter.service.SecurityService;
 import ch.rasc.eds.starter.util.JPAQueryFactory;
 import ch.rasc.eds.starter.web.CsrfController;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class JsonAuthSuccessHandler implements AuthenticationSuccessHandler {

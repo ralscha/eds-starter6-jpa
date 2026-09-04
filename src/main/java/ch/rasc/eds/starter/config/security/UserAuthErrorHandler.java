@@ -49,13 +49,13 @@ public class UserAuthErrorHandler
 				&& (principal instanceof String || principal instanceof JpaUserDetails)) {
 
 			User user = null;
-			if (principal instanceof String) {
+			if (principal instanceof String loginName) {
 				user = this.jpaQueryFactory.selectFrom(QUser.user)
-						.where(QUser.user.loginName.eq((String) principal))
+						.where(QUser.user.loginName.eq(loginName))
 						.where(QUser.user.deleted.isFalse()).fetchFirst();
 			}
-			else {
-				user = ((JpaUserDetails) principal).getUser(this.jpaQueryFactory);
+			else if (principal instanceof JpaUserDetails jpaUserDetails) {
+				user = jpaUserDetails.getUser(this.jpaQueryFactory);
 			}
 
 			if (user != null) {

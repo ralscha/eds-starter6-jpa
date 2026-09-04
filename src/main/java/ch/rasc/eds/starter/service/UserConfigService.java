@@ -6,7 +6,7 @@ import static ch.ralscha.extdirectspring.annotation.ExtDirectMethodType.STORE_RE
 import java.util.List;
 import java.util.Locale;
 
-import javax.validation.Validator;
+import jakarta.validation.Validator;
 
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

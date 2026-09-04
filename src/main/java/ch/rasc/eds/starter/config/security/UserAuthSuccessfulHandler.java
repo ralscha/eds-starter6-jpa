@@ -22,8 +22,8 @@ public class UserAuthSuccessfulHandler
 	@Transactional
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
 		Object principal = event.getAuthentication().getPrincipal();
-		if (principal instanceof JpaUserDetails) {
-			Long userId = ((JpaUserDetails) principal).getUserDbId();
+		if (principal instanceof JpaUserDetails jpaUserDetails) {
+			Long userId = jpaUserDetails.getUserDbId();
 
 			this.jpaQueryFactory.update(QUser.user).setNull(QUser.user.lockedOutUntil)
 					.setNull(QUser.user.failedLogins).where(QUser.user.id.eq(userId))

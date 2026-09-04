@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.15</version>
+    <version>4.1.1</version>
     <relativePath/>
   </parent>
 
@@ -21,7 +21,8 @@
     <start-class>ch.rasc.eds.starter.Application</start-class>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>25</java.version>
-    <hibernate.version>5.3.2.Final</hibernate.version>
+    <liquibase.version>5.0.4</liquibase.version>
+    <querydsl.version>5.1.0</querydsl.version>
     <maven.build.timestamp.format>yyyy-MM-dd&apos;T&apos;HH-mm-ssZ</maven.build.timestamp.format>
     <build.timestamp>${maven.build.timestamp}</build.timestamp>
   </properties>
@@ -34,7 +35,7 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter-webmvc</artifactId>
     </dependency>
 
     <dependency>
@@ -53,11 +54,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
@@ -65,6 +61,8 @@
     <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>
+      <version>${querydsl.version}</version>
+      <classifier>jakarta</classifier>
     </dependency>
 
     <dependency>
@@ -72,21 +70,15 @@
       <artifactId>h2</artifactId>
     </dependency>
 
-    <!-- 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version>
-		</dependency> -->
-
     <dependency>
-      <groupId>org.liquibase</groupId>
-      <artifactId>liquibase-core</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-liquibase</artifactId>
     </dependency>
 
     <dependency>
       <groupId>ch.ralscha</groupId>
       <artifactId>extdirectspring</artifactId>
-      <version>1.8.1</version>
+      <version>3.0.0</version>
     </dependency>
 
     <dependency>
@@ -99,12 +91,6 @@
       <groupId>eu.bitwalker</groupId>
       <artifactId>UserAgentUtils</artifactId>
       <version>1.21</version>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.inject</groupId>
-      <artifactId>javax.inject</artifactId>
-      <version>1</version>
     </dependency>
 
     <dependency>
@@ -156,15 +142,12 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <executable>true</executable>
-        </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
-        <version>3.8.7</version>
+        <version>5.0.4</version>
         <configuration>
           <changeLogFile>src/main/resources/db/changelog.xml</changeLogFile>
           <diffChangeLogFile>src/main/resources/db/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
@@ -176,7 +159,7 @@
           <systemProperties>
             <user.name>dev</user.name>
           </systemProperties>
-          <referenceUrl>hibernate:spring:ch.rasc.eds.starter.entity?dialect=org.hibernate.dialect.MySQL5Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
+          <referenceUrl>hibernate:spring:ch.rasc.eds.starter.entity?dialect=org.hibernate.dialect.MySQLDialect&amp;hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy</referenceUrl>
           <verbose>true</verbose>
           <logging>debug</logging>
           <diffExcludeObjects>table:jv_.*,sequence:jv_.*,sequence:.*_id_.*</diffExcludeObjects>
@@ -184,28 +167,18 @@
         <dependencies>
           <dependency>
             <groupId>org.liquibase.ext</groupId>
-            <artifactId>liquibase-hibernate5</artifactId>
-            <version>3.10.0</version>
+            <artifactId>liquibase-hibernate7</artifactId>
+            <version>5.0.4</version>
           </dependency>
           <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>26.7.0</version>
           </dependency>
           <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${project.parent.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>7.0.5.Final</version>
-          </dependency>
-          <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>2.2</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -213,6 +186,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>3.5.1</version>
         <configuration>
           <excludes>
             <exclude>application-development.yml</exclude>
@@ -223,23 +197,18 @@
       <plugin>
         <groupId>com.mysema.maven</groupId>
         <artifactId>apt-maven-plugin</artifactId>
-        <version>1.1.2</version>
+        <version>1.1.3</version>
         <dependencies>
           <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
             <version>${querydsl.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
-            <version>${querydsl.version}</version>
-            <classifier>apt</classifier>
+            <classifier>jakarta</classifier>
           </dependency>
           <dependency>
             <groupId>ch.rasc</groupId>
             <artifactId>extclassgenerator</artifactId>
-            <version>2.0.0</version>
+            <version>4.0.0</version>
           </dependency>
         </dependencies>
         <executions>
@@ -277,6 +246,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
+        <version>3.6.3</version>
         <executions>
           <execution>
             <id>sencha-app-clean-development</id>
@@ -329,6 +299,7 @@
 
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <goals>
@@ -401,7 +372,7 @@
             <path>
               <groupId>com.google.errorprone</groupId>
               <artifactId>error_prone_core</artifactId>
-              <version>2.49.0</version>
+              <version>2.50.0</version>
             </path>
           </annotationProcessorPaths>
         </configuration>

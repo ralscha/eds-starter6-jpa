@@ -1,5 +1,7 @@
 package ch.rasc.eds.starter.service;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,8 +10,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -66,10 +68,10 @@ public class MailService {
 	@Async
 	public void sendPasswortResetEmail(User receiver, String token) {
 		String link = this.appUrl + "?token="
-				+ Base64.getUrlEncoder().encodeToString(token.getBytes());
+				+ Base64.getUrlEncoder().encodeToString(token.getBytes(UTF_8));
 
 		try {
-			Locale userLocale = new Locale(receiver.getLocale());
+			Locale userLocale = Locale.forLanguageTag(receiver.getLocale());
 			sendHtmlMessage(this.defaultSender, receiver.getEmail(),
 					this.appName + ": "
 							+ this.messageSource.getMessage("user_pwreset_emailsubject",
@@ -84,12 +86,13 @@ public class MailService {
 	private String getEmailText(Locale locale, String loginName, String link)
 			throws IOException {
 		String resource = "pwreset_email.mustache";
-		if (locale != null && locale.getLanguage().toLowerCase().equals("de")) {
+		if (locale != null && "de".equalsIgnoreCase(locale.getLanguage())) {
 			resource = "pwreset_email_de.mustache";
 		}
 		ClassPathResource cp = new ClassPathResource(resource);
 		try (InputStream is = cp.getInputStream()) {
-			Template template = this.mustacheCompiler.compile(new InputStreamReader(is));
+			Template template = this.mustacheCompiler
+					.compile(new InputStreamReader(is, UTF_8));
 
 			Map<String, Object> data = new HashMap<>();
 			data.put("loginName", loginName);

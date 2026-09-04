@@ -16,18 +16,18 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.Ordered;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import ch.ralscha.extdirectspring.util.ExtDirectSpringUtil;
 import ch.rasc.eds.starter.entity.Authority;
@@ -49,7 +49,7 @@ class DevelopmentConfig {
 		config.setAllowCredentials(true);
 		filter.setFilter(new CorsFilter(r -> config));
 		filter.setUrlPatterns(Collections.singleton("/*"));
-		filter.setOrder(SecurityProperties.DEFAULT_FILTER_ORDER - 1);
+		filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return filter;
 	}
 

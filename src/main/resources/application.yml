@@ -15,16 +15,14 @@ app:
 
 spring:
   jackson:
-    serialization:
-      write-date-timestamps-as-nanoseconds: false
+    datatype:
+      datetime:
+        write-date-timestamps-as-nanoseconds: false
   
-  resources:
-    cache:
-      period: 31556926
-  
-  mvc:
-    favicon:
-      enabled: false
+  web:
+    resources:
+      cache:
+        period: 31556926
 
   mail:
     host: localhost    
@@ -61,6 +59,7 @@ spring:
     thread-name-prefix: starter-async-executor
 
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: validate
 
@@ -79,7 +78,7 @@ server:
 #  compression:
 #     enabled: true
 #     mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript,image/svg+xml,application/x-font-ttf,application/x-font-truetype,application/x-font-opentype,application/vnd.ms-fontobject,application/font-sfnt     
-  use-forward-headers: true
+  forward-headers-strategy: native
 
 logging:
   level:
@@ -88,11 +87,10 @@ logging:
     org.apache: WARN
     liquibase: WARN
     ch: WARN
-  file: ./app.log
+  file:
+    name: ./app.log
 
 management:
-  server:
-    add-application-context-header: false
   endpoint:
     metrics:
       enabled: false

@@ -1,9 +1,9 @@
 package ch.rasc.eds.starter.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 
 import ch.rasc.extclassgenerator.ModelField;
 
@@ -11,7 +11,7 @@ import ch.rasc.extclassgenerator.ModelField;
 public abstract class AbstractPersistable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ModelField(useNull = true, convert = "null")
 	private Long id;
 
@@ -30,6 +30,7 @@ public abstract class AbstractPersistable {
 	}
 
 	@Override
+	@SuppressWarnings("EqualsGetClass")
 	public boolean equals(Object obj) {
 
 		if (null == obj) {

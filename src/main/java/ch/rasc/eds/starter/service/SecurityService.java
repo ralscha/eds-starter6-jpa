@@ -1,6 +1,7 @@
 package ch.rasc.eds.starter.service;
 
 import static ch.ralscha.extdirectspring.annotation.ExtDirectMethodType.POLL;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -9,8 +10,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -162,7 +163,7 @@ public class SecurityService {
 		if (StringUtils.hasText(token) && StringUtils.hasText(newPassword)
 				&& StringUtils.hasText(newPasswordRetype)
 				&& newPassword.equals(newPasswordRetype)) {
-			String decodedToken = new String(Base64.getUrlDecoder().decode(token));
+			String decodedToken = new String(Base64.getUrlDecoder().decode(token), UTF_8);
 			User user = this.jpaQueryFactory.selectFrom(QUser.user)
 					.where(QUser.user.passwordResetToken.eq(decodedToken),
 							QUser.user.deleted.isFalse(), QUser.user.enabled.isTrue())

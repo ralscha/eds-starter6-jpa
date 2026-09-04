@@ -42,7 +42,7 @@ public class JpaUserDetails implements UserDetails {
 		this.enabled = user.isEnabled();
 
 		if (StringUtils.hasText(user.getLocale())) {
-			this.locale = new Locale(user.getLocale());
+			this.locale = Locale.forLanguageTag(user.getLocale());
 		}
 		else {
 			this.locale = Locale.ENGLISH;

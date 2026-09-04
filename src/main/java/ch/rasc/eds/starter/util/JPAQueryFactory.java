@@ -1,6 +1,6 @@
 package ch.rasc.eds.starter.util;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 public class JPAQueryFactory extends com.querydsl.jpa.impl.JPAQueryFactory {
 

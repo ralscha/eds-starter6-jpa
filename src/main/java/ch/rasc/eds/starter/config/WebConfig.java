@@ -8,8 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.servlet.LocaleResolver;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.samskivert.mustache.Mustache;
+
+import tools.jackson.databind.ObjectMapper;
 
 import ch.ralscha.extdirectspring.util.JsonHandler;
 
