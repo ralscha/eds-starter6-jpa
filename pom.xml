@@ -78,7 +78,7 @@
     <dependency>
       <groupId>ch.ralscha</groupId>
       <artifactId>extdirectspring</artifactId>
-      <version>3.0.0</version>
+      <version>3.0.1</version>
     </dependency>
 
     <dependency>
@@ -246,7 +246,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.6.3</version>
+        <version>3.6.4</version>
         <executions>
           <execution>
             <id>sencha-app-clean-development</id>
